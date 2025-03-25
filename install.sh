@@ -187,6 +187,7 @@ if ! command_exists lazygit; then
 else
   echo "✅ Lazygit already installed."
 fi
+
 ZSHRC="$HOME/.zshrc"
 # Ensure Zsh is installed
 if ! command_exists zsh; then
