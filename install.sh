@@ -96,6 +96,25 @@ if ! command_exists curl; then
   echo "✅ curl installed."
 fi
 
+# Ensure unzip is installed
+if ! command_exists unzip; then
+  echo "📦 Installing unzip..."
+
+  case "$PACKAGE_MANAGER" in
+    apt) sudo apt update && sudo apt install -y unzip ;;
+    yum) sudo yum install -y unzip ;;
+    dnf) sudo dnf install -y unzip ;;
+    pacman) sudo pacman -Sy --noconfirm unzip ;;
+    apk) sudo apk add unzip ;;
+    brew) brew install unzip ;;
+    *)
+      echo "❌ No supported package manager found. Install unzip manually."
+      exit 1
+      ;;
+  esac
+
+  echo "✅ unzip installed."
+fi
 
 # Ensure Neovim is installed
 if ! command_exists nvim; then
