@@ -4,7 +4,18 @@ echo "🛠️ Setting up your development environment..."
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 remove_existing() {
-  local paths=("$HOME/.config/nvim" "$HOME/.tmux.conf" "$HOME/.tmux" "$HOME/.zshrc" "$HOME/.gitconfig")
+  local paths=(
+    "$HOME/.config/nvim"
+    "$HOME/.tmux.conf"
+    "$HOME/.tmux"
+    "$HOME/.zshrc"
+    "$HOME/.gitconfig"
+    "$HOME/.p10k.zsh"
+    "$HOME/.oh-my-zsh"
+    "$HOME/.nvm"
+    "$HOME/.deno"
+    "$HOME/.tmux/plugins/tpm"
+  )
   for path in "${paths[@]}"; do
     if [ -e "$path" ]; then
       rm -rf "$path"
@@ -149,6 +160,109 @@ install_zsh_plugins() {
   done
 }
 
+# Install pnpm through npm
+install_pnpm() {
+  if ! command_exists pnpm; then
+    echo "📦 Installing pnpm..."
+    npm install -g pnpm
+  else
+    echo "✅ pnpm already installed."
+  fi
+}
+
+# depends on platform install go
+install_go() {
+  if ! command_exists go; then
+    echo "📦 Installing Go..."
+    case "$PACKAGE_MANAGER" in
+    apt)
+      sudo apt update && sudo apt install -y golang-go
+      ;;
+    yum)
+      sudo yum install -y golang
+      ;;
+    dnf)
+      sudo dnf install -y golang
+      ;;
+    pacman)
+      sudo pacman -Sy --noconfirm go
+      ;;
+    apk)
+      sudo apk add go
+      ;;
+    brew)
+      brew install go
+      ;;
+    *)
+      echo "❌ Unsupported package manager. Please install Go manually."
+      exit 1
+      ;;
+    esac
+  else
+    echo "✅ Go already installed."
+  fi
+}
+
+install_go_bin() {
+  if [ ! -d "$HOME/go/bin" ]; then
+    echo "📦 Installing Go binaries..."
+    mkdir -p "$HOME/go/bin"
+    export GOPATH="$HOME/go"
+    export PATH="$GOPATH/bin:$PATH"
+  else
+    echo "✅ Go binaries already installed."
+  fi
+}
+
+# Install PHP
+install_php() {
+  if ! command_exists php; then
+    echo "📦 Installing PHP..."
+    case "$PACKAGE_MANAGER" in
+    apt)
+      sudo apt update && sudo apt install -y php
+      ;;
+    yum)
+      sudo yum install -y php
+      ;;
+    dnf)
+      sudo dnf install -y php
+      ;;
+    pacman)
+      sudo pacman -Sy --noconfirm php
+      ;;
+    apk)
+      sudo apk add php
+      ;;
+    brew)
+      brew install php
+      ;;
+    *)
+      echo "❌ Unsupported package manager. Please install PHP manually."
+      exit 1
+      ;;
+    esac
+  else
+    echo "✅ PHP already installed."
+  fi
+}
+
+# Install valet
+install_valet() {
+  if ! command_exists valet; then
+    echo "📦 Installing Valet..."
+    if command_exists composer; then
+      composer global require laravel/valet
+      valet install
+    else
+      echo "❌ Composer not found. Please install Composer first."
+      exit 1
+    fi
+  else
+    echo "✅ Valet already installed."
+  fi
+}
+
 main() {
   remove_existing
   create_symlinks
@@ -172,6 +286,12 @@ main() {
   install_nvm
   install_node
   install_deno
+  install_go
+  install_go_bin
+  install_php
+  install_valet
+  install_package
+  install_pnpm
   install_lazygit
   install_tmux
   install_tpm
