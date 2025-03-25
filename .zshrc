@@ -1,15 +1,15 @@
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Load Powerlevel10k instant prompt quietly
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-# Add flutter to path
-export PATH="$PATH:/Users/hasib/flutter/flutter/bin" 
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -35,10 +35,17 @@ alias pns='pnpm start'
 # alias wails='$(go env GOPATH)/bin/wails'
 
 
+# Add flutter to path
+export PATH="$PATH:/Users/hasib/flutter/flutter/bin" 
+
 export NVM_DIR="$HOME/.nvm"
+
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 . "/Users/hasib/.deno/env"
+
 export PATH="/Users/hasib/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/Users/hasib/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export PATH="$PATH:$(go env GOPATH)/bin"
@@ -50,4 +57,5 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
 
