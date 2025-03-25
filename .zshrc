@@ -3,7 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Load Powerlevel10k instant prompt quietly
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+# typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
 
@@ -31,19 +31,9 @@ alias pnd='pnpm dev'
 alias pnb='pnpm build'
 alias pns='pnpm start'
 
-# alias air='$(go env GOPATH)/bin/air'
-# alias wails='$(go env GOPATH)/bin/wails'
-
-
-# Add flutter to path
-export PATH="$PATH:/Users/hasib/flutter/flutter/bin" 
-
 export NVM_DIR="$HOME/.nvm"
-
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 . "/Users/hasib/.deno/env"
 
 export PATH="/Users/hasib/.config/herd-lite/bin:$PATH"

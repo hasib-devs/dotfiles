@@ -2,6 +2,72 @@
 
 echo "🛠️ Setting up your development environment..."
 
+# Detect the package manager
+detect_package_manager() {
+  if [ -x "$(command -v apt)" ]; then
+    echo "apt"
+  elif [ -x "$(command -v yum)" ]; then
+    echo "yum"
+  elif [ -x "$(command -v dnf)" ]; then
+    echo "dnf"
+  elif [ -x "$(command -v pacman)" ]; then
+    echo "pacman"
+  elif [ -x "$(command -v apk)" ]; then
+    echo "apk"
+  else
+    echo "unknown"
+  fi
+}
+
+PACKAGE_MANAGER=$(detect_package_manager)
+
+# Ensure root privileges if sudo is not available
+if ! command -v sudo &> /dev/null; then
+  echo "⚠️  sudo not found, attempting to install it..."
+
+  case "$PACKAGE_MANAGER" in
+    apt) su -c "apt update && apt install -y sudo" ;;
+    yum) su -c "yum install -y sudo" ;;
+    dnf) su -c "dnf install -y sudo" ;;
+    pacman) su -c "pacman -Sy --noconfirm sudo" ;;
+    apk) su -c "apk add sudo" ;;
+    *)
+      echo "❌ Unsupported package manager. Please install sudo manually."
+      exit 1
+      ;;
+  esac
+
+  echo "✅ sudo installed."
+fi
+
+# Ensure curl is installed
+if ! command -v curl &> /dev/null; then
+  echo "📦 Installing curl..."
+
+  if [ "$PACKAGE_MANAGER" = "apt" ]; then
+    sudo apt update && sudo apt install -y curl
+  elif [ "$PACKAGE_MANAGER" = "yum" ]; then
+    sudo yum install -y curl
+  elif [ "$PACKAGE_MANAGER" = "dnf" ]; then
+    sudo dnf install -y curl
+  elif [ "$PACKAGE_MANAGER" = "pacman" ]; then
+    sudo pacman -Sy --noconfirm curl
+  elif [ "$PACKAGE_MANAGER" = "apk" ]; then
+    sudo apk add curl
+  else
+    echo "❌ No supported package manager found. Install curl manually."
+    exit 1
+  fi
+
+  echo "✅ curl installed."
+fi
+
+# Symlink essential dotfiles
+ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/.p10k.zsh ~/.p10k.zsh
+ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
+
 # Helper function: Check if a command exists
 command_exists() {
   command -v "$1" >/dev/null 2>&1
@@ -78,7 +144,31 @@ else
   echo "✅ NVM already installed."
 fi
 
-# Step 8: Install Lazygit
+# Load NVM environment
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Install the latest Node.js version if not present
+if ! command_exists node; then
+  echo "⬇️  Installing latest Node.js..."
+  nvm install node
+  nvm use node
+  nvm alias default node
+else
+  echo "✅ Node.js already installed: $(node -v)"
+fi
+
+# Step 8: Install Deno if not present
+if ! command_exists deno; then
+  echo "📥 Installing Deno..."
+  curl -fsSL https://deno.land/install.sh | sh
+  export DENO_INSTALL="$HOME/.deno"
+  export PATH="$DENO_INSTALL/bin:$PATH"
+else
+  echo "✅ Deno already installed: $(deno --version)"
+fi
+
+# Step 9: Install Lazygit
 if ! command_exists lazygit; then
   echo "📥 Installing Lazygit..."
   if command_exists apt; then
@@ -96,13 +186,8 @@ else
   echo "✅ Lazygit already installed."
 fi
 
-# Symlink essential dotfiles
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.p10k.zsh ~/.p10k.zsh
-ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
-ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 
-# Step 8: Source the new Zsh configuration
+# Step 10: Source the new Zsh configuration
 echo "🔄 Reloading Zsh configuration..."
 source ~/.zshrc
 
