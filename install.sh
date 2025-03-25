@@ -1,14 +1,35 @@
 #!/bin/bash
 
 echo "🛠️ Setting up your development environment..."
+DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+# Remove existing directories/files
+if [ -d "$HOME/.config/nvim" ]; then
+    rm -rf "$HOME/.config/nvim"
+fi
+
+if [ -f "$HOME/.tmux.conf" ]; then
+    rm -rf "$HOME/.tmux.conf"
+fi
+
+if [ -d "$HOME/.tmux" ]; then
+    rm -rf "$HOME/.tmux"
+fi
+
+if [ -d "$HOME/.zshrc" ]; then
+    rm -rf "$HOME/.zshrc"
+fi
+
+if [ -d "$HOME/.gitconfig" ]; then
+    rm -rf "$HOME/.gitconfig"
+fi
 
 # Symlink essential dotfiles
-ln -sf "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
-ln -sf "$HOME/dotfiles/.p10k.zsh" "$HOME/.p10k.zsh"
-ln -sf "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
-ln -sf "$HOME/dotfiles/.tmux.conf" "$HOME/.tmux.conf"
-
+ln -sf "$DOTFILES/.zshrc" "$HOME/.zshrc"
+ln -sf "$DOTFILES/.p10k.zsh" "$HOME/.p10k.zsh"
+ln -sf "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
+ln -sf "$DOTFILES/.tmux.conf" "$HOME/.tmux.conf"
 echo "🔗 Symlink complete"
+
 # Helper function: Check if a command exists
 command_exists() {
   command -v "$1" >/dev/null 2>&1
