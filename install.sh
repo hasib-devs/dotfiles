@@ -4,23 +4,23 @@ echo "🛠️ Setting up your development environment..."
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 # Remove existing directories/files
 if [ -d "$HOME/.config/nvim" ]; then
-    rm -rf "$HOME/.config/nvim"
+  rm -rf "$HOME/.config/nvim"
 fi
 
 if [ -f "$HOME/.tmux.conf" ]; then
-    rm -rf "$HOME/.tmux.conf"
+  rm -rf "$HOME/.tmux.conf"
 fi
 
 if [ -d "$HOME/.tmux" ]; then
-    rm -rf "$HOME/.tmux"
+  rm -rf "$HOME/.tmux"
 fi
 
 if [ -d "$HOME/.zshrc" ]; then
-    rm -rf "$HOME/.zshrc"
+  rm -rf "$HOME/.zshrc"
 fi
 
 if [ -d "$HOME/.gitconfig" ]; then
-    rm -rf "$HOME/.gitconfig"
+  rm -rf "$HOME/.gitconfig"
 fi
 
 # Symlink essential dotfiles
@@ -48,7 +48,7 @@ detect_package_manager() {
   elif command_exists apk; then
     echo "apk"
   elif command_exists brew; then
-    echo "brew"  # macOS uses Homebrew
+    echo "brew" # macOS uses Homebrew
   else
     echo "unknown"
   fi
@@ -61,16 +61,16 @@ if ! command_exists sudo; then
   echo "⚠️  sudo not found, attempting to install it..."
 
   case "$PACKAGE_MANAGER" in
-    apt) su -c "apt update && apt install -y sudo" ;;
-    yum) su -c "yum install -y sudo" ;;
-    dnf) su -c "dnf install -y sudo" ;;
-    pacman) su -c "pacman -Sy --noconfirm sudo" ;;
-    apk) su -c "apk add sudo" ;;
-    brew) echo "Homebrew requires sudo for certain actions, but it should be pre-installed on macOS." ;;
-    *)
-      echo "❌ Unsupported package manager. Please install sudo manually."
-      exit 1
-      ;;
+  apt) su -c "apt update && apt install -y sudo" ;;
+  yum) su -c "yum install -y sudo" ;;
+  dnf) su -c "dnf install -y sudo" ;;
+  pacman) su -c "pacman -Sy --noconfirm sudo" ;;
+  apk) su -c "apk add sudo" ;;
+  brew) echo "Homebrew requires sudo for certain actions, but it should be pre-installed on macOS." ;;
+  *)
+    echo "❌ Unsupported package manager. Please install sudo manually."
+    exit 1
+    ;;
   esac
 
   echo "✅ sudo installed."
@@ -81,16 +81,16 @@ if ! command_exists curl; then
   echo "📦 Installing curl..."
 
   case "$PACKAGE_MANAGER" in
-    apt) sudo apt update && sudo apt install -y curl ;;
-    yum) sudo yum install -y curl ;;
-    dnf) sudo dnf install -y curl ;;
-    pacman) sudo pacman -Sy --noconfirm curl ;;
-    apk) sudo apk add curl ;;
-    brew) brew install curl ;;
-    *)
-      echo "❌ No supported package manager found. Install curl manually."
-      exit 1
-      ;;
+  apt) sudo apt update && sudo apt install -y curl ;;
+  yum) sudo yum install -y curl ;;
+  dnf) sudo dnf install -y curl ;;
+  pacman) sudo pacman -Sy --noconfirm curl ;;
+  apk) sudo apk add curl ;;
+  brew) brew install curl ;;
+  *)
+    echo "❌ No supported package manager found. Install curl manually."
+    exit 1
+    ;;
   esac
 
   echo "✅ curl installed."
@@ -101,16 +101,16 @@ if ! command_exists unzip; then
   echo "📦 Installing unzip..."
 
   case "$PACKAGE_MANAGER" in
-    apt) sudo apt update && sudo apt install -y unzip ;;
-    yum) sudo yum install -y unzip ;;
-    dnf) sudo dnf install -y unzip ;;
-    pacman) sudo pacman -Sy --noconfirm unzip ;;
-    apk) sudo apk add unzip ;;
-    brew) brew install unzip ;;
-    *)
-      echo "❌ No supported package manager found. Install unzip manually."
-      exit 1
-      ;;
+  apt) sudo apt update && sudo apt install -y unzip ;;
+  yum) sudo yum install -y unzip ;;
+  dnf) sudo dnf install -y unzip ;;
+  pacman) sudo pacman -Sy --noconfirm unzip ;;
+  apk) sudo apk add unzip ;;
+  brew) brew install unzip ;;
+  *)
+    echo "❌ No supported package manager found. Install unzip manually."
+    exit 1
+    ;;
   esac
 
   echo "✅ unzip installed."
@@ -121,21 +121,20 @@ if ! command_exists nvim; then
   echo "📦 Installing Neovim..."
 
   case "$PACKAGE_MANAGER" in
-    apt) sudo apt update && sudo apt install -y neovim ;;
-    yum) sudo yum install -y neovim ;;
-    dnf) sudo dnf install -y neovim ;;
-    pacman) sudo pacman -Sy --noconfirm neovim ;;
-    apk) sudo apk add neovim ;;
-    brew) brew install neovim ;;
-    *)
-      echo "❌ Unsupported package manager. Please install Neovim manually."
-      exit 1
-      ;;
+  apt) sudo apt update && sudo apt install -y neovim ;;
+  yum) sudo yum install -y neovim ;;
+  dnf) sudo dnf install -y neovim ;;
+  pacman) sudo pacman -Sy --noconfirm neovim ;;
+  apk) sudo apk add neovim ;;
+  brew) brew install neovim ;;
+  *)
+    echo "❌ Unsupported package manager. Please install Neovim manually."
+    exit 1
+    ;;
   esac
 
   echo "✅ Neovim installed successfully."
 fi
-
 
 # Step Install NVM (Node Version Manager)
 if [ ! -d "$HOME/.nvm" ]; then
@@ -169,23 +168,59 @@ fi
 if ! command_exists lazygit; then
   echo "📥 Installing Lazygit..."
   case "$PACKAGE_MANAGER" in
-    apt)
-        LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-        curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-        tar xf lazygit.tar.gz lazygit
-        sudo install lazygit -D -t /usr/local/bin/
-      ;;
-    yum) sudo yum install -y lazygit ;;
-    dnf) sudo dnf install -y lazygit ;;
-    pacman) sudo pacman -Sy --noconfirm lazygit ;;
-    apk) sudo apk add lazygit ;;
-    brew) brew install lazygit ;;
-    *)
-      echo "❌ No supported package manager found. Install Lazygit manually."
-      ;;
+  apt)
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit -D -t /usr/local/bin/
+    ;;
+  yum) sudo yum install -y lazygit ;;
+  dnf) sudo dnf install -y lazygit ;;
+  pacman) sudo pacman -Sy --noconfirm lazygit ;;
+  apk) sudo apk add lazygit ;;
+  brew) brew install lazygit ;;
+  *)
+    echo "❌ No supported package manager found. Install Lazygit manually."
+    ;;
   esac
 else
   echo "✅ Lazygit already installed."
+fi
+
+# Install Tmux
+if ! command_exists tmux; then
+  echo "📦 Installing Tmux..."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # For macOS
+    brew install tmux
+  elif [[ -x "$(command -v apt)" ]]; then
+    # For Debian/Ubuntu
+    sudo apt update
+    sudo apt install -y tmux
+  elif [[ -x "$(command -v pacman)" ]]; then
+    # For Arch Linux
+    sudo pacman -S tmux --noconfirm
+  else
+    echo "Unsupported package manager. Please install tmux manually."
+    exit 1
+  fi
+else
+  echo "tmux is already installed."
+fi
+# Install Tmux Plugin Manager (tpm)
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  echo "Installing Tmux Plugin Manager (tpm)..."
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+else
+  echo "Tmux Plugin Manager (tpm) is already installed."
+fi
+
+# Install Tmux plugins
+if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+  echo "Installing Tmux plugins..."
+  "$HOME/.tmux/plugins/tpm/bin/install_plugins"
+else
+  echo "Tmux Plugin Manager (tpm) not found. Skipping plugin installation."
 fi
 
 ZSHRC="$HOME/.zshrc"
@@ -194,16 +229,16 @@ if ! command_exists zsh; then
   echo "📦 Installing Zsh..."
 
   case "$PACKAGE_MANAGER" in
-    apt) sudo apt update && sudo apt install -y zsh ;;
-    yum) sudo yum install -y zsh ;;
-    dnf) sudo dnf install -y zsh ;;
-    pacman) sudo pacman -Sy --noconfirm zsh ;;
-    apk) sudo apk add zsh ;;
-    brew) brew install zsh ;;
-    *)
-      echo "❌ Unsupported package manager. Install zsh manually."
-      exit 1
-      ;;
+  apt) sudo apt update && sudo apt install -y zsh ;;
+  yum) sudo yum install -y zsh ;;
+  dnf) sudo dnf install -y zsh ;;
+  pacman) sudo pacman -Sy --noconfirm zsh ;;
+  apk) sudo apk add zsh ;;
+  brew) brew install zsh ;;
+  *)
+    echo "❌ Unsupported package manager. Install zsh manually."
+    exit 1
+    ;;
   esac
 
   echo "✅ Zsh installed successfully."
@@ -240,4 +275,3 @@ if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
 fi
 
 echo "🎉 Environment setup complete!"
-
