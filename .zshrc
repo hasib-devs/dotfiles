@@ -13,14 +13,14 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit $HOME/.p10k.zsh.
+[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
 #Custom Alias
-alias p='cd ~/Desktop/projects'
-alias t='cd ~/Desktop/testing'
-alias r='cd ~/Desktop/repo'
-alias ww='cd ~/Desktop/www'
+alias p='cd $HOME/Desktop/projects'
+alias t='cd $HOME/Desktop/testing'
+alias r='cd $HOME/Desktop/repo'
+alias ww='cd $HOME/Desktop/www'
 alias v=nvim
 alias c=clear
 alias lg=lazygit
@@ -34,7 +34,7 @@ alias pns='pnpm start'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "/Users/hasib/.deno/env"
+. "$HOME/.deno/env"
 
 export PATH="/Users/hasib/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/Users/hasib/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
