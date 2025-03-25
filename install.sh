@@ -2,18 +2,25 @@
 
 echo "🛠️ Setting up your development environment..."
 
+# Helper function: Check if a command exists
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
 # Detect the package manager
 detect_package_manager() {
-  if [ -x "$(command -v apt)" ]; then
+  if command_exists apt; then
     echo "apt"
-  elif [ -x "$(command -v yum)" ]; then
+  elif command_exists yum; then
     echo "yum"
-  elif [ -x "$(command -v dnf)" ]; then
+  elif command_exists dnf; then
     echo "dnf"
-  elif [ -x "$(command -v pacman)" ]; then
+  elif command_exists pacman; then
     echo "pacman"
-  elif [ -x "$(command -v apk)" ]; then
+  elif command_exists apk; then
     echo "apk"
+  elif command_exists brew; then
+    echo "brew"  # macOS uses Homebrew
   else
     echo "unknown"
   fi
@@ -22,7 +29,7 @@ detect_package_manager() {
 PACKAGE_MANAGER=$(detect_package_manager)
 
 # Ensure root privileges if sudo is not available
-if ! command -v sudo &> /dev/null; then
+if ! command_exists sudo; then
   echo "⚠️  sudo not found, attempting to install it..."
 
   case "$PACKAGE_MANAGER" in
@@ -31,6 +38,7 @@ if ! command -v sudo &> /dev/null; then
     dnf) su -c "dnf install -y sudo" ;;
     pacman) su -c "pacman -Sy --noconfirm sudo" ;;
     apk) su -c "apk add sudo" ;;
+    brew) echo "Homebrew requires sudo for certain actions, but it should be pre-installed on macOS." ;;
     *)
       echo "❌ Unsupported package manager. Please install sudo manually."
       exit 1
@@ -41,100 +49,65 @@ if ! command -v sudo &> /dev/null; then
 fi
 
 # Ensure curl is installed
-if ! command -v curl &> /dev/null; then
+if ! command_exists curl; then
   echo "📦 Installing curl..."
 
-  if [ "$PACKAGE_MANAGER" = "apt" ]; then
-    sudo apt update && sudo apt install -y curl
-  elif [ "$PACKAGE_MANAGER" = "yum" ]; then
-    sudo yum install -y curl
-  elif [ "$PACKAGE_MANAGER" = "dnf" ]; then
-    sudo dnf install -y curl
-  elif [ "$PACKAGE_MANAGER" = "pacman" ]; then
-    sudo pacman -Sy --noconfirm curl
-  elif [ "$PACKAGE_MANAGER" = "apk" ]; then
-    sudo apk add curl
-  else
-    echo "❌ No supported package manager found. Install curl manually."
-    exit 1
-  fi
+  case "$PACKAGE_MANAGER" in
+    apt) sudo apt update && sudo apt install -y curl ;;
+    yum) sudo yum install -y curl ;;
+    dnf) sudo dnf install -y curl ;;
+    pacman) sudo pacman -Sy --noconfirm curl ;;
+    apk) sudo apk add curl ;;
+    brew) brew install curl ;;
+    *)
+      echo "❌ No supported package manager found. Install curl manually."
+      exit 1
+      ;;
+  esac
 
   echo "✅ curl installed."
 fi
 
-# Symlink essential dotfiles
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.p10k.zsh ~/.p10k.zsh
-ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
-ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
-
-# Helper function: Check if a command exists
-command_exists() {
-  command -v "$1" >/dev/null 2>&1
-}
-
-# Step 1: Ensure Zsh is installed
+# Ensure Zsh is installed
 if ! command_exists zsh; then
   echo "📦 Installing Zsh..."
 
-  if command_exists apt; then
-    sudo apt update && sudo apt install -y zsh
-  elif command_exists brew; then
-    brew install zsh
-  elif command_exists yum; then
-    sudo yum install -y zsh
-  elif command_exists pacman; then
-    sudo pacman -Sy --noconfirm zsh
-  else
-    echo "❌ No compatible package manager found. Install Zsh manually."
-    exit 1
-  fi
+  case "$PACKAGE_MANAGER" in
+    apt) sudo apt update && sudo apt install -y zsh ;;
+    yum) sudo yum install -y zsh ;;
+    dnf) sudo dnf install -y zsh ;;
+    pacman) sudo pacman -Sy --noconfirm zsh ;;
+    apk) sudo apk add zsh ;;
+    brew) brew install zsh ;;
+    *)
+      echo "❌ Unsupported package manager. Install zsh manually."
+      exit 1
+      ;;
+  esac
 
   echo "✅ Zsh installed successfully."
 fi
 
-# Step 2: Switch to Zsh if not already in Zsh
-if [ -z "$ZSH_VERSION" ]; then
-  echo "🔄 Switching to Zsh..."
-  exec zsh "$0"  # Restart script using Zsh
-  exit
+# Ensure Neovim is installed
+if ! command_exists nvim; then
+  echo "📦 Installing Neovim..."
+
+  case "$PACKAGE_MANAGER" in
+    apt) sudo apt update && sudo apt install -y neovim ;;
+    yum) sudo yum install -y neovim ;;
+    dnf) sudo dnf install -y neovim ;;
+    pacman) sudo pacman -Sy --noconfirm neovim ;;
+    apk) sudo apk add neovim ;;
+    brew) brew install neovim ;;
+    *)
+      echo "❌ Unsupported package manager. Please install Neovim manually."
+      exit 1
+      ;;
+  esac
+
+  echo "✅ Neovim installed successfully."
 fi
 
-# Step 3: Set Zsh as the default shell
-if [ "$SHELL" != "$(which zsh)" ]; then
-  echo "🔧 Setting Zsh as the default shell..."
-  chsh -s "$(which zsh)"
-fi
-
-# Step 4: Install Oh My Zsh if not present
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "🚀 Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-else
-  echo "✅ Oh My Zsh already installed."
-fi
-
-# Step 5: Install Powerlevel10k theme
-if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
-  echo "🎨 Installing Powerlevel10k theme..."
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-fi
-
-# Step 6: Install Zsh Plugins
-PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
-
-# zsh-autosuggestions
-if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
-  echo "🔍 Installing zsh-autosuggestions..."
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$PLUGINS_DIR/zsh-autosuggestions"
-fi
-
-# zsh-syntax-highlighting
-if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
-  echo "🖍️  Installing zsh-syntax-highlighting..."
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
-fi
 
 # Step 7: Install NVM (Node Version Manager)
 if [ ! -d "$HOME/.nvm" ]; then
@@ -186,6 +159,54 @@ else
   echo "✅ Lazygit already installed."
 fi
 
+# Step 2: Switch to Zsh if not already in Zsh
+if [ -z "$ZSH_VERSION" ]; then
+  echo "🔄 Switching to Zsh..."
+  exec zsh "$0"  # Restart script using Zsh
+  exit
+fi
+
+# Step 3: Set Zsh as the default shell
+if [ "$SHELL" != "$(which zsh)" ]; then
+  echo "🔧 Setting Zsh as the default shell..."
+  chsh -s "$(which zsh)"
+fi
+
+# Step 4: Install Oh My Zsh if not present
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "🚀 Installing Oh My Zsh..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+else
+  echo "✅ Oh My Zsh already installed."
+fi
+
+# Step 5: Install Powerlevel10k theme
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+  echo "🎨 Installing Powerlevel10k theme..."
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
+
+# Step 6: Install Zsh Plugins
+PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+
+# zsh-autosuggestions
+if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
+  echo "🔍 Installing zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$PLUGINS_DIR/zsh-autosuggestions"
+fi
+
+# zsh-syntax-highlighting
+if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
+  echo "🖍️  Installing zsh-syntax-highlighting..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
+fi
+# Symlink essential dotfiles
+ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/.p10k.zsh ~/.p10k.zsh
+ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
+echo "🔗 Symlink complete"
 
 # Step 10: Source the new Zsh configuration
 echo "🔄 Reloading Zsh configuration..."
