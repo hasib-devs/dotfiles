@@ -164,6 +164,60 @@ else
   echo "✅ Deno already installed: $(deno --version)"
 fi
 
+# Install PHP and Composer
+if ! command_exists php; then
+  echo "📦 Installing PHP..."
+  case "$PACKAGE_MANAGER" in
+  apt) sudo apt update && sudo apt install -y php ;;
+  yum) sudo yum install -y php ;;
+  dnf) sudo dnf install -y php ;;
+  pacman) sudo pacman -Sy --noconfirm php ;;
+  apk) sudo apk add php ;;
+  brew) brew install php ;;
+  *)
+    echo "❌ Unsupported package manager. Please install PHP manually."
+    exit 1
+    ;;
+  esac
+
+  echo "✅ PHP installed successfully."
+fi
+if ! command_exists composer; then
+  echo "📦 Installing Composer..."
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+  php -r "unlink('composer-setup.php');"
+else
+  echo "✅ Composer already installed: $(composer --version)"
+fi
+
+# Install go
+if ! command_exists go; then
+  echo "📦 Installing Go..."
+  case "$PACKAGE_MANAGER" in
+  apt) sudo apt update && sudo apt install -y golang ;;
+  yum) sudo yum install -y golang ;;
+  dnf) sudo dnf install -y golang ;;
+  pacman) sudo pacman -Sy --noconfirm go ;;
+  apk) sudo apk add go ;;
+  brew) brew install go ;;
+  *)
+    echo "❌ Unsupported package manager. Please install Go manually."
+    exit 1
+    ;;
+  esac
+
+  echo "✅ Go installed successfully."
+fi
+
+# Install Rust
+if ! command_exists rustup; then
+  echo "📦 Installing Rust..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+else
+  echo "✅ Rust already installed: $(rustc --version)"
+fi
+
 # Install Lazygit
 if ! command_exists lazygit; then
   echo "📥 Installing Lazygit..."
@@ -206,6 +260,14 @@ if ! command_exists tmux; then
   fi
 else
   echo "tmux is already installed."
+fi
+
+# Install Tmux Plugin Manager (TPM)
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  echo "📦 Installing Tmux Plugin Manager (TPM)..."
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+else
+  echo "✅ Tmux Plugin Manager (TPM) already installed."
 fi
 
 ZSHRC="$HOME/.zshrc"
