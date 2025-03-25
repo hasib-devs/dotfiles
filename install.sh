@@ -238,22 +238,5 @@ if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
 fi
 
-# Step Switch to Zsh if not already in Zsh
-# if [ -z "$ZSH_VERSION" ]; then
-#   echo "🔄 Switching to Zsh..."
-#   exec zsh "$0"  # Restart script using Zsh
-#   exit
-# fi
-
-# Step 3: Set Zsh as the default shell
-# if [ "$SHELL" != "$(which zsh)" ]; then
-#   echo "🔧 Setting Zsh as the default shell..."
-#   chsh -s "$(which zsh)"
-# fi
-
-# Step 10: Source the new Zsh configuration
-echo "🔄 Reloading Zsh configuration..."
-source "$ZSHRC"
-
 echo "🎉 Environment setup complete!"
 
