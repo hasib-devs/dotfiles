@@ -125,8 +125,6 @@ export NVM_DIR="$HOME/.nvm"
 if ! command_exists node; then
   echo "⬇️  Installing latest Node.js..."
   nvm install node
-  nvm use node
-  nvm alias default node
 else
   echo "✅ Node.js already installed: $(node -v)"
 fi
@@ -135,26 +133,27 @@ fi
 if ! command_exists deno; then
   echo "📥 Installing Deno..."
   curl -fsSL https://deno.land/install.sh | sh
-  export DENO_INSTALL="$HOME/.deno"
-  export PATH="$DENO_INSTALL/bin:$PATH"
 else
   echo "✅ Deno already installed: $(deno --version)"
 fi
 
-# Step 9: Install Lazygit
+# Install Lazygit
 if ! command_exists lazygit; then
   echo "📥 Installing Lazygit..."
-  if command_exists apt; then
-    sudo add-apt-repository ppa:lazygit-team/release -y && sudo apt update && sudo apt install -y lazygit
-  elif command_exists brew; then
-    brew install jesseduffield/lazygit/lazygit
-  elif command_exists yum; then
-    sudo yum install -y lazygit
-  elif command_exists pacman; then
-    sudo pacman -Sy --noconfirm lazygit
-  else
-    echo "❌ No compatible package manager found. Install Lazygit manually."
-  fi
+  case "$PACKAGE_MANAGER" in
+    apt)
+      sudo add-apt-repository ppa:lazygit-team/release -y
+      sudo apt update && sudo apt install -y lazygit
+      ;;
+    yum) sudo yum install -y lazygit ;;
+    dnf) sudo dnf install -y lazygit ;;
+    pacman) sudo pacman -Sy --noconfirm lazygit ;;
+    apk) sudo apk add lazygit ;;
+    brew) brew install lazygit ;;
+    *)
+      echo "❌ No supported package manager found. Install Lazygit manually."
+      ;;
+  esac
 else
   echo "✅ Lazygit already installed."
 fi
