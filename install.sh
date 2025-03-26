@@ -5,25 +5,31 @@ source "./utils.sh"
 
 PACKAGE_MANAGER=$(detect_package_manager)
 
-# Ensure Neovim is installed
-# if ! command_exists nvim; then
-#   echo "📦 Installing Neovim..."
+# Install latest version of Neovim through AppImage
+if ! command_exists nvim; then
+  echo "📦 Installing Neovim..."
+  case "$PACKAGE_MANAGER" in
+  apt)
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+    chmod u+x nvim-linux-x86_64.appimage
+    mkdir -p /opt/nvim
+    mv nvim-linux-x86_64.appimage /opt/nvim/nvim
+    ;;
+  yum) sudo yum install -y neovim ;;
+  dnf) sudo dnf install -y neovim ;;
+  pacman) sudo pacman -Sy --noconfirm neovim ;;
+  apk) sudo apk add neovim ;;
+  brew) brew install neovim ;;
+  *)
+    echo "❌ No supported package manager found. Install Neovim manually."
+    exit 1
+    ;;
+  esac
 
-#   case "$PACKAGE_MANAGER" in
-#   apt) sudo apt update && sudo apt install -y neovim ;;
-#   yum) sudo yum install -y neovim ;;
-#   dnf) sudo dnf install -y neovim ;;
-#   pacman) sudo pacman -Sy --noconfirm neovim ;;
-#   apk) sudo apk add neovim ;;
-#   brew) brew install neovim ;;
-#   *)
-#     echo "❌ Unsupported package manager. Please install Neovim manually."
-#     exit 1
-#     ;;
-#   esac
-
-#   echo "✅ Neovim installed successfully."
-# fi
+  echo "✅ Neovim installed successfully."
+else
+  echo "✅ Neovim already installed: $(nvim --version | head -n1)"
+fi
 
 # Step Install NVM (Node Version Manager)
 if [ ! -d "$HOME/.nvm" ]; then
