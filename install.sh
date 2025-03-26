@@ -152,7 +152,7 @@ if ! command_exists tmux; then
     exit 1
   fi
 else
-  echo "tmux is already installed."
+  echo "✅ tmux is already installed."
 fi
 
 # Install Tmux Plugin Manager (TPM)
