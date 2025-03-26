@@ -25,7 +25,7 @@ PACKAGE_MANAGER=$(detect_package_manager)
 #   echo "✅ Neovim installed successfully."
 # fi
 
-Step Install NVM (Node Version Manager)
+# Step Install NVM (Node Version Manager)
 if [ ! -d "$HOME/.nvm" ]; then
   echo "📦 Installing NVM (Node Version Manager)..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
@@ -33,7 +33,7 @@ else
   echo "✅ NVM already installed."
 fi
 
-Install the latest Node.js version if not present
+# Install the latest Node.js version if not present
 if ! command_exists node; then
   echo "⬇️  Installing latest Node.js..."
   nvm install node
