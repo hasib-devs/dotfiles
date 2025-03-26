@@ -85,6 +85,28 @@ if ! command_exists fzf; then
   echo "✅ fzf installed."
 fi
 
+# Clone Powerlevel10k theme
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+  echo "🎨 Installing Powerlevel10k theme..."
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
+
+# Clone Plugins
+PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+
+# Clone zsh-autosuggestions
+if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
+  echo "🔍 Installing zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$PLUGINS_DIR/zsh-autosuggestions"
+fi
+
+# Clone  zsh-syntax-highlighting
+if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
+  echo "🖍️  Installing zsh-syntax-highlighting..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
+fi
+
 # Ensure Zsh is installed
 if ! command_exists zsh; then
   echo "📦 Installing Zsh..."
