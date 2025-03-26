@@ -87,19 +87,19 @@ fi
 
 # Remove existing directories/files
 if [ -f "$HOME/.tmux.conf" ]; then
-  rm -rf "$HOME/.tmux.conf"
+  rm "$HOME/.tmux.conf"
 fi
 
 if [ -d "$HOME/.zshrc" ]; then
-  rm -rf "$HOME/.zshrc"
+  rm "$HOME/.zshrc"
 fi
 
 if [ -d "$HOME/.gitconfig" ]; then
-  rm -rf "$HOME/.gitconfig"
+  rm "$HOME/.gitconfig"
 fi
 
 if [ -d "$HOME/.p10k.zsh" ]; then
-  rm -rf "$HOME/.p10k.zsh"
+  rm "$HOME/.p10k.zsh"
 fi
 
 if [ -d "$HOME/.config/nvim" ]; then
@@ -120,25 +120,25 @@ fi
 
 # Remove existing symlinks
 if [ -L "$HOME/.tmux.conf" ]; then
-  rm -rf "$HOME/.tmux.conf"
+  unlink "$HOME/.tmux.conf"
 fi
 if [ -L "$HOME/.zshrc" ]; then
-  rm -rf "$HOME/.zshrc"
+  unlink "$HOME/.zshrc"
 fi
 if [ -L "$HOME/.gitconfig" ]; then
-  rm -rf "$HOME/.gitconfig"
+  unlink "$HOME/.gitconfig"
 fi
 if [ -L "$HOME/.p10k.zsh" ]; then
-  rm -rf "$HOME/.p10k.zsh"
+  unlink "$HOME/.p10k.zsh"
 fi
 if [ -L "$HOME/.config/nvim" ]; then
-  rm -rf "$HOME/.config/nvim"
+  unlink "$HOME/.config/nvim"
 fi
 if [ -L "$HOME/.config/kickstart" ]; then
-  rm -rf "$HOME/.config/kickstart"
+  unlink "$HOME/.config/kickstart"
 fi
 if [ -L "$HOME/.config/AstroNvim" ]; then
-  rm -rf "$HOME/.config/AstroNvim"
+  unlink "$HOME/.config/AstroNvim"
 fi
 
 # Create directories if they don't exist
