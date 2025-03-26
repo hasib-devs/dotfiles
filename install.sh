@@ -3,14 +3,6 @@ source "./utils.sh"
 
 PACKAGE_MANAGER=$(detect_package_manager)
 
-# Install Oh My Zsh if not present
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "🚀 Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-else
-  echo "✅ Oh My Zsh already installed."
-fi
-
 # Install Powerlevel10k theme
 if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
   echo "🎨 Installing Powerlevel10k theme..."

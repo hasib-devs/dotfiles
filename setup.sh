@@ -101,14 +101,13 @@ if ! command_exists zsh; then
     exit 1
     ;;
   esac
-
   echo "✅ Zsh installed successfully."
 fi
 
 # Install Oh My Zsh if not present
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "🚀 Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 else
   echo "✅ Oh My Zsh already installed."
 fi
