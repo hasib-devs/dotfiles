@@ -10,12 +10,11 @@ if ! command_exists nvim; then
   echo "📦 Installing Neovim..."
   case "$PACKAGE_MANAGER" in
   apt)
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-    chmod u+x nvim-linux-x86_64.appimage
-    mkdir -p /opt/nvim
-    mv nvim-linux-x86_64.appimage /opt/nvim/nvim
-    # Add path to zshrc
-    echo 'export PATH=$PATH:/opt/nvim' >>~/.zshrc
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+
+    sudo ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
     ;;
   yum) sudo yum install -y neovim ;;
   dnf) sudo dnf install -y neovim ;;
