@@ -23,25 +23,25 @@ PACKAGE_MANAGER=$(detect_package_manager)
 #   echo "✅ Neovim installed successfully."
 # fi
 
-# Step Install NVM (Node Version Manager)
-# if [ ! -d "$HOME/.nvm" ]; then
-#   echo "📦 Installing NVM (Node Version Manager)..."
-#   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-# else
-#   echo "✅ NVM already installed."
-# fi
+Step Install NVM (Node Version Manager)
+if [ ! -d "$HOME/.nvm" ]; then
+  echo "📦 Installing NVM (Node Version Manager)..."
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+else
+  echo "✅ NVM already installed."
+fi
 
-# Load NVM environment
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+Load NVM environment
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Install the latest Node.js version if not present
-# if ! command_exists node; then
-#   echo "⬇️  Installing latest Node.js..."
-#   nvm install node
-# else
-#   echo "✅ Node.js already installed: $(node -v)"
-# fi
+Install the latest Node.js version if not present
+if ! command_exists node; then
+  echo "⬇️  Installing latest Node.js..."
+  nvm install node
+else
+  echo "✅ Node.js already installed: $(node -v)"
+fi
 
 # Step Install Deno if not present
 # if ! command_exists deno; then
