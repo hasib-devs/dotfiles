@@ -1,8 +1,6 @@
 # Source the utils.sh file to use its functions
 source "./utils.sh"
 
-PACKAGE_MANAGER=$(detect_package_manager)
-
 # Install Oh My Zsh if not present
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "🚀 Installing Oh My Zsh..."
@@ -18,9 +16,6 @@ if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
     ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
-# Install Zsh Plugins
-PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
-
 # zsh-autosuggestions
 if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
   echo "🔍 Installing zsh-autosuggestions..."
@@ -32,7 +27,6 @@ if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
   echo "🖍️  Installing zsh-syntax-highlighting..."
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
 fi
-
 
 # Ensure Neovim is installed
 if ! command_exists nvim; then
@@ -187,7 +181,5 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 else
   echo "✅ Tmux Plugin Manager (TPM) already installed."
 fi
-
-
 
 echo "🎉 Environment setup complete!"

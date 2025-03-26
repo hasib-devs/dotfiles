@@ -23,3 +23,8 @@ detect_package_manager() {
     echo "unknown"
   fi
 }
+
+PACKAGE_MANAGER=$(detect_package_manager)
+DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+ZSHRC="$HOME/.zshrc"
+PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
