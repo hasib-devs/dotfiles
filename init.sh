@@ -85,34 +85,6 @@ if ! command_exists fzf; then
   echo "✅ fzf installed."
 fi
 
-# Ensure Zsh is installed
-if ! command_exists zsh; then
-  echo "📦 Installing Zsh..."
-
-  case "$PACKAGE_MANAGER" in
-  apt) sudo apt update && sudo apt install -y zsh ;;
-  yum) sudo yum install -y zsh ;;
-  dnf) sudo dnf install -y zsh ;;
-  pacman) sudo pacman -Sy --noconfirm zsh ;;
-  apk) sudo apk add zsh ;;
-  brew) brew install zsh ;;
-  *)
-    echo "❌ Unsupported package manager. Install zsh manually."
-    exit 1
-    ;;
-  esac
-
-  echo "✅ Zsh installed successfully."
-fi
-
-# Install Oh My Zsh if not present
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "🚀 Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-else
-  echo "✅ Oh My Zsh already installed."
-fi
-
 # Remove existing directories/files
 if [ -f "$HOME/.tmux.conf" ]; then
   rm -rf "$HOME/.tmux.conf"
@@ -182,3 +154,31 @@ ln -s "$DOTFILES/kickstart" "$HOME/.config/kickstart"
 ln -s "$DOTFILES/AstroNvim" "$HOME/.config/AstroNvim"
 
 echo "🔗 Symlink complete"
+
+# Ensure Zsh is installed
+if ! command_exists zsh; then
+  echo "📦 Installing Zsh..."
+
+  case "$PACKAGE_MANAGER" in
+  apt) sudo apt update && sudo apt install -y zsh ;;
+  yum) sudo yum install -y zsh ;;
+  dnf) sudo dnf install -y zsh ;;
+  pacman) sudo pacman -Sy --noconfirm zsh ;;
+  apk) sudo apk add zsh ;;
+  brew) brew install zsh ;;
+  *)
+    echo "❌ Unsupported package manager. Install zsh manually."
+    exit 1
+    ;;
+  esac
+
+  echo "✅ Zsh installed successfully."
+fi
+
+# Install Oh My Zsh if not present
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "🚀 Installing Oh My Zsh..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+else
+  echo "✅ Oh My Zsh already installed."
+fi
