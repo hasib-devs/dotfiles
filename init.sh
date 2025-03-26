@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the utils.sh file to use its functions
-source "$(dirname "$0")/utils.sh"
+source "./utils.sh"
 
 echo "🛠️ Setting up your development environment..."
 
@@ -103,6 +103,14 @@ if ! command_exists zsh; then
   esac
 
   echo "✅ Zsh installed successfully."
+fi
+
+# Install Oh My Zsh if not present
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "🚀 Installing Oh My Zsh..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+else
+  echo "✅ Oh My Zsh already installed."
 fi
 
 # Remove existing directories/files
