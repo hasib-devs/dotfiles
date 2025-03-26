@@ -27,12 +27,15 @@ if ! command_exists nvim; then
   echo "📦 Installing Neovim..."
 
   case "$PACKAGE_MANAGER" in
-  apt) sudo apt update && sudo apt install -y neovim ;;
-  yum) sudo yum install -y neovim ;;
-  dnf) sudo dnf install -y neovim ;;
-  pacman) sudo pacman -Sy --noconfirm neovim ;;
-  apk) sudo apk add neovim ;;
-  brew) brew install neovim ;;
+  apt | yum | dnf | pacman | apk)
+    echo "⬇️  Downloading latest Neovim AppImage..."
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod u+x nvim.appimage
+    sudo mv nvim.appimage /usr/local/bin/nvim
+    ;;
+  brew)
+    brew install neovim
+    ;;
   *)
     echo "❌ Unsupported package manager. Please install Neovim manually."
     exit 1
