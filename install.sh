@@ -12,7 +12,7 @@ if ! command_exists nvim; then
   apt)
     apt update
     apt install -y wget ninja-build gettext cmake software-properties-common
-    add-apt-repository ppa:neovim-ppa/unstable
+    add-apt-repository ppa:neovim-ppa/stable
     apt update
     apt install -y neovim
     ;;
