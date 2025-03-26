@@ -85,6 +85,29 @@ if ! command_exists fzf; then
   echo "✅ fzf installed."
 fi
 
+# Remove existing symlinks
+if [ -L "$HOME/.tmux.conf" ]; then
+  unlink "$HOME/.tmux.conf"
+fi
+if [ -L "$HOME/.zshrc" ]; then
+  unlink "$HOME/.zshrc"
+fi
+if [ -L "$HOME/.gitconfig" ]; then
+  unlink "$HOME/.gitconfig"
+fi
+if [ -L "$HOME/.p10k.zsh" ]; then
+  unlink "$HOME/.p10k.zsh"
+fi
+if [ -L "$HOME/.config/nvim" ]; then
+  unlink "$HOME/.config/nvim"
+fi
+if [ -L "$HOME/.config/kickstart" ]; then
+  unlink "$HOME/.config/kickstart"
+fi
+if [ -L "$HOME/.config/AstroNvim" ]; then
+  unlink "$HOME/.config/AstroNvim"
+fi
+
 # Remove existing directories/files
 if [ -f "$HOME/.tmux.conf" ]; then
   rm "$HOME/.tmux.conf"
@@ -116,29 +139,6 @@ fi
 
 if [ -d "$HOME/.tmux" ]; then
   rm -rf "$HOME/.tmux"
-fi
-
-# Remove existing symlinks
-if [ -L "$HOME/.tmux.conf" ]; then
-  unlink "$HOME/.tmux.conf"
-fi
-if [ -L "$HOME/.zshrc" ]; then
-  unlink "$HOME/.zshrc"
-fi
-if [ -L "$HOME/.gitconfig" ]; then
-  unlink "$HOME/.gitconfig"
-fi
-if [ -L "$HOME/.p10k.zsh" ]; then
-  unlink "$HOME/.p10k.zsh"
-fi
-if [ -L "$HOME/.config/nvim" ]; then
-  unlink "$HOME/.config/nvim"
-fi
-if [ -L "$HOME/.config/kickstart" ]; then
-  unlink "$HOME/.config/kickstart"
-fi
-if [ -L "$HOME/.config/AstroNvim" ]; then
-  unlink "$HOME/.config/AstroNvim"
 fi
 
 # Create directories if they don't exist
