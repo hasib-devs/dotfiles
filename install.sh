@@ -9,7 +9,7 @@ PACKAGE_MANAGER=$(detect_package_manager)
 if ! command_exists nvim; then
   echo "📦 Installing Neovim..."
   case "$PACKAGE_MANAGER" in
-  apt) apt install neovim -y ;;
+  apt) apt install python3-neovim ;;
   yum) sudo yum install -y neovim ;;
   dnf) sudo dnf install -y neovim ;;
   pacman) sudo pacman -Sy --noconfirm neovim ;;
