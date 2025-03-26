@@ -33,10 +33,6 @@ else
   echo "✅ NVM already installed."
 fi
 
-Load NVM environment
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
 Install the latest Node.js version if not present
 if ! command_exists node; then
   echo "⬇️  Installing latest Node.js..."

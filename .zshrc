@@ -47,3 +47,9 @@ function nvims() {
 }
 
 bindkey -s ^a "nvims\n"
+
+# Node Version Manager (NVM)
+# This loads NVM (Node Version Manager)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
