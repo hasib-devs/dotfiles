@@ -116,6 +116,60 @@ if ! command_exists unzip; then
   echo "✅ unzip installed."
 fi
 
+
+ZSHRC="$HOME/.zshrc"
+
+# Ensure Zsh is installed
+if ! command_exists zsh; then
+  echo "📦 Installing Zsh..."
+
+  case "$PACKAGE_MANAGER" in
+  apt) sudo apt update && sudo apt install -y zsh ;;
+  yum) sudo yum install -y zsh ;;
+  dnf) sudo dnf install -y zsh ;;
+  pacman) sudo pacman -Sy --noconfirm zsh ;;
+  apk) sudo apk add zsh ;;
+  brew) brew install zsh ;;
+  *)
+    echo "❌ Unsupported package manager. Install zsh manually."
+    exit 1
+    ;;
+  esac
+
+  echo "✅ Zsh installed successfully."
+fi
+
+# Install Oh My Zsh if not present
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "🚀 Installing Oh My Zsh..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+else
+  echo "✅ Oh My Zsh already installed."
+fi
+
+# Install Powerlevel10k theme
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+  echo "🎨 Installing Powerlevel10k theme..."
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
+
+# Install Zsh Plugins
+PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+
+# zsh-autosuggestions
+if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
+  echo "🔍 Installing zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$PLUGINS_DIR/zsh-autosuggestions"
+fi
+
+# zsh-syntax-highlighting
+if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
+  echo "🖍️  Installing zsh-syntax-highlighting..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
+fi
+
+
 # Ensure Neovim is installed
 if ! command_exists nvim; then
   echo "📦 Installing Neovim..."
@@ -270,55 +324,6 @@ else
   echo "✅ Tmux Plugin Manager (TPM) already installed."
 fi
 
-ZSHRC="$HOME/.zshrc"
-# Ensure Zsh is installed
-if ! command_exists zsh; then
-  echo "📦 Installing Zsh..."
 
-  case "$PACKAGE_MANAGER" in
-  apt) sudo apt update && sudo apt install -y zsh ;;
-  yum) sudo yum install -y zsh ;;
-  dnf) sudo dnf install -y zsh ;;
-  pacman) sudo pacman -Sy --noconfirm zsh ;;
-  apk) sudo apk add zsh ;;
-  brew) brew install zsh ;;
-  *)
-    echo "❌ Unsupported package manager. Install zsh manually."
-    exit 1
-    ;;
-  esac
-
-  echo "✅ Zsh installed successfully."
-fi
-
-# Install Oh My Zsh if not present
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "🚀 Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-else
-  echo "✅ Oh My Zsh already installed."
-fi
-
-# Install Powerlevel10k theme
-if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
-  echo "🎨 Installing Powerlevel10k theme..."
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-fi
-
-# Install Zsh Plugins
-PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
-
-# zsh-autosuggestions
-if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
-  echo "🔍 Installing zsh-autosuggestions..."
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$PLUGINS_DIR/zsh-autosuggestions"
-fi
-
-# zsh-syntax-highlighting
-if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
-  echo "🖍️  Installing zsh-syntax-highlighting..."
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
-fi
 
 echo "🎉 Environment setup complete!"
