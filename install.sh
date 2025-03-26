@@ -176,4 +176,6 @@ else
   echo "✅ Tmux Plugin Manager (TPM) already installed."
 fi
 
+source "$HOME/.zshrc"
+
 echo "🎉 Environment setup complete!"
