@@ -50,12 +50,12 @@ else
 fi
 
 # Step Install Deno if not present
-# if ! command_exists deno; then
-#   echo "📥 Installing Deno..."
-#   curl -fsSL https://deno.land/install.sh | sh
-# else
-#   echo "✅ Deno already installed: $(deno --version)"
-# fi
+if ! command_exists deno; then
+  echo "📥 Installing Deno..."
+  curl -fsSL https://deno.land/install.sh | sh
+else
+  echo "✅ Deno already installed: $(deno --version)"
+fi
 
 # Install PHP and Composer
 # if ! command_exists php; then
