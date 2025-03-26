@@ -21,7 +21,7 @@ if ! command_exists sudo; then
     exit 1
     ;;
   esac
-
+else
   echo "✅ sudo installed."
 fi
 
@@ -41,7 +41,7 @@ if ! command_exists curl; then
     exit 1
     ;;
   esac
-
+else
   echo "✅ curl installed."
 fi
 
@@ -61,7 +61,7 @@ if ! command_exists unzip; then
     exit 1
     ;;
   esac
-
+else
   echo "✅ unzip installed."
 fi
 
@@ -81,7 +81,7 @@ if ! command_exists fzf; then
     exit 1
     ;;
   esac
-
+else
   echo "✅ fzf installed."
 fi
 
@@ -90,6 +90,8 @@ if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
   echo "🎨 Installing Powerlevel10k theme..."
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
     ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+else
+  echo "✅ Powerlevel10k already installed."
 fi
 
 # Clone Plugins
@@ -99,12 +101,17 @@ PLUGINS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
 if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
   echo "🔍 Installing zsh-autosuggestions..."
   git clone https://github.com/zsh-users/zsh-autosuggestions "$PLUGINS_DIR/zsh-autosuggestions"
+else
+  echo "✅ zsh-autosuggestions already installed."
 fi
 
 # Clone  zsh-syntax-highlighting
 if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
   echo "🖍️  Installing zsh-syntax-highlighting..."
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$PLUGINS_DIR/zsh-syntax-highlighting"
+
+else
+  echo "✅ zsh-syntax-highlighting already installed."
 fi
 
 # Ensure Zsh is installed
@@ -123,6 +130,7 @@ if ! command_exists zsh; then
     exit 1
     ;;
   esac
+else
   echo "✅ Zsh installed successfully."
 fi
 
