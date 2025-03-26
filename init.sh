@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Source the utils.sh file to use its functions
@@ -7,7 +6,6 @@ source "./utils.sh"
 echo "🛠️ Setting up your development environment..."
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 # Remove existing directories/files
-
 if [ -f "$HOME/.tmux.conf" ]; then
   rm -rf "$HOME/.tmux.conf"
 fi
@@ -40,6 +38,34 @@ if [ -d "$HOME/.tmux" ]; then
   rm -rf "$HOME/.tmux"
 fi
 
+# Remove existing symlinks
+if [ -L "$HOME/.tmux.conf" ]; then
+  rm -rf "$HOME/.tmux.conf"
+fi
+if [ -L "$HOME/.zshrc" ]; then
+  rm -rf "$HOME/.zshrc"
+fi
+if [ -L "$HOME/.gitconfig" ]; then
+  rm -rf "$HOME/.gitconfig"
+fi
+if [ -L "$HOME/.p10k.zsh" ]; then
+  rm -rf "$HOME/.p10k.zsh"
+fi
+if [ -L "$HOME/.config/nvim" ]; then
+  rm -rf "$HOME/.config/nvim"
+fi
+if [ -L "$HOME/.config/kickstart" ]; then
+  rm -rf "$HOME/.config/kickstart"
+fi
+if [ -L "$HOME/.config/AstroNvim" ]; then
+  rm -rf "$HOME/.config/AstroNvim"
+fi
+
+# Create directories if they don't exist
+mkdir -p "$HOME/.config/nvim"
+mkdir -p "$HOME/.config/kickstart"
+mkdir -p "$HOME/.config/AstroNvim"
+
 # Symlink essential dotfiles
 ln -s "$DOTFILES/.zshrc" "$HOME/.zshrc"
 ln -s "$DOTFILES/.p10k.zsh" "$HOME/.p10k.zsh"
@@ -51,7 +77,6 @@ ln -s "$DOTFILES/kickstart" "$HOME/.config/kickstart"
 ln -s "$DOTFILES/AstroNvim" "$HOME/.config/AstroNvim"
 
 echo "🔗 Symlink complete"
-
 
 # Ensure root privileges if sudo is not available
 if ! command_exists sudo; then
@@ -112,7 +137,6 @@ if ! command_exists unzip; then
 
   echo "✅ unzip installed."
 fi
-
 
 # Ensure fzf is installed
 if ! command_exists fzf; then
