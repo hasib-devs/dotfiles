@@ -104,12 +104,12 @@ fi
 # fi
 
 # Install Rust
-# if ! command_exists rustup; then
-#   echo "📦 Installing Rust..."
-#   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# else
-#   echo "✅ Rust already installed: $(rustc --version)"
-# fi
+if ! command_exists rustup; then
+  echo "📦 Installing Rust..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+else
+  echo "✅ Rust already installed: $(rustc --version)"
+fi
 
 # # Install Lazygit
 # if ! command_exists lazygit; then
@@ -135,32 +135,32 @@ fi
 # fi
 
 # Install Tmux
-# if ! command_exists tmux; then
-#   echo "tmux not found, installing tmux..."
-#   if [[ "$OSTYPE" == "darwin"* ]]; then
-#     # For macOS
-#     brew install tmux
-#   elif [[ -x "$(command -v apt)" ]]; then
-#     # For Debian/Ubuntu
-#     sudo apt update
-#     sudo apt install -y tmux
-#   elif [[ -x "$(command -v pacman)" ]]; then
-#     # For Arch Linux
-#     sudo pacman -S tmux --noconfirm
-#   else
-#     echo "Unsupported package manager. Please install tmux manually."
-#     exit 1
-#   fi
-# else
-#   echo "tmux is already installed."
-# fi
+if ! command_exists tmux; then
+  echo "tmux not found, installing tmux..."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # For macOS
+    brew install tmux
+  elif [[ -x "$(command -v apt)" ]]; then
+    # For Debian/Ubuntu
+    sudo apt update
+    sudo apt install -y tmux
+  elif [[ -x "$(command -v pacman)" ]]; then
+    # For Arch Linux
+    sudo pacman -S tmux --noconfirm
+  else
+    echo "Unsupported package manager. Please install tmux manually."
+    exit 1
+  fi
+else
+  echo "tmux is already installed."
+fi
 
 # Install Tmux Plugin Manager (TPM)
-# if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-#   echo "📦 Installing Tmux Plugin Manager (TPM)..."
-#   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-# else
-#   echo "✅ Tmux Plugin Manager (TPM) already installed."
-# fi
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  echo "📦 Installing Tmux Plugin Manager (TPM)..."
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+else
+  echo "✅ Tmux Plugin Manager (TPM) already installed."
+fi
 
 echo "🎉 Environment setup complete!"
