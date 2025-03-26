@@ -92,24 +92,27 @@ else
   echo "✅ Composer already installed: $(composer --version)"
 fi
 
-# Install go
-# if ! command_exists go; then
-#   echo "📦 Installing Go..."
-#   case "$PACKAGE_MANAGER" in
-#   apt) sudo apt update && sudo apt install -y golang ;;
-#   yum) sudo yum install -y golang ;;
-#   dnf) sudo dnf install -y golang ;;
-#   pacman) sudo pacman -Sy --noconfirm go ;;
-#   apk) sudo apk add go ;;
-#   brew) brew install go ;;
-#   *)
-#     echo "❌ Unsupported package manager. Please install Go manually."
-#     exit 1
-#     ;;
-#   esac
+# Install latest version of Go if not present
+if ! command_exists go; then
+  echo "📦 Installing Go..."
+  case "$PACKAGE_MANAGER" in
+  apt)
+    sudo apt update
+    sudo apt install -y golang-go
+    ;;
+  yum) sudo yum install -y golang ;;
+  dnf) sudo dnf install -y golang ;;
+  pacman) sudo pacman -Sy --noconfirm go ;;
+  apk) sudo apk add go ;;
+  brew) brew install go ;;
+  *)
+    echo "❌ Unsupported package manager. Please install Go manually."
+    exit 1
+    ;;
+  esac
 
-#   echo "✅ Go installed successfully."
-# fi
+  echo "✅ Go installed successfully."
+fi
 
 # Install Rust
 if ! command_exists rustup; then
