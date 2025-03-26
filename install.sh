@@ -57,32 +57,40 @@ else
   echo "✅ Deno already installed: $(deno --version)"
 fi
 
-# Install PHP and Composer
-# if ! command_exists php; then
-#   echo "📦 Installing PHP..."
-#   case "$PACKAGE_MANAGER" in
-#   apt) sudo apt update && sudo apt install -y php ;;
-#   yum) sudo yum install -y php ;;
-#   dnf) sudo dnf install -y php ;;
-#   pacman) sudo pacman -Sy --noconfirm php ;;
-#   apk) sudo apk add php ;;
-#   brew) brew install php ;;
-#   *)
-#     echo "❌ Unsupported package manager. Please install PHP manually."
-#     exit 1
-#     ;;
-#   esac
+# Install PHP 8.4 PHP and related extensions
+if ! command_exists php; then
+  echo "📦 Installing PHP..."
+  case "$PACKAGE_MANAGER" in
+  apt)
+    sudo apt update
+    sudo apt install -y software-properties-common
+    sudo add-apt-repository ppa:ondrej/php
+    sudo apt update
+    sudo apt install -y php8.4 php8.4-cli php8.4-fpm php8.4-mysql php8.4-xml php8.4-curl php8.4-mbstring php8.4-zip php8.4-bcmath
+    ;;
+  yum) sudo yum install -y php ;;
+  dnf) sudo dnf install -y php ;;
+  pacman) sudo pacman -Sy --noconfirm php ;;
+  apk) sudo apk add php ;;
+  brew) brew install php@8.4 ;;
+  *)
+    echo "❌ Unsupported package manager. Please install PHP manually."
+    exit 1
+    ;;
+  esac
 
-#   echo "✅ PHP installed successfully."
-# fi
-# if ! command_exists composer; then
-#   echo "📦 Installing Composer..."
-#   php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-#   php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-#   php -r "unlink('composer-setup.php');"
-# else
-#   echo "✅ Composer already installed: $(composer --version)"
-# fi
+  echo "✅ PHP installed successfully."
+fi
+
+# Install latest Composer
+if ! command_exists composer; then
+  echo "📦 Installing Composer..."
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+  php -r "unlink('composer-setup.php');"
+else
+  echo "✅ Composer already installed: $(composer --version)"
+fi
 
 # Install go
 # if ! command_exists go; then
