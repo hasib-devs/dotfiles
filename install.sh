@@ -112,27 +112,27 @@ else
 fi
 
 # # Install Lazygit
-# if ! command_exists lazygit; then
-#   echo "📥 Installing Lazygit..."
-#   case "$PACKAGE_MANAGER" in
-#   apt)
-#     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-#     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-#     tar xf lazygit.tar.gz lazygit
-#     sudo install lazygit -D -t /usr/local/bin/
-#     ;;
-#   yum) sudo yum install -y lazygit ;;
-#   dnf) sudo dnf install -y lazygit ;;
-#   pacman) sudo pacman -Sy --noconfirm lazygit ;;
-#   apk) sudo apk add lazygit ;;
-#   brew) brew install lazygit ;;
-#   *)
-#     echo "❌ No supported package manager found. Install Lazygit manually."
-#     ;;
-#   esac
-# else
-#   echo "✅ Lazygit already installed."
-# fi
+if ! command_exists lazygit; then
+  echo "📥 Installing Lazygit..."
+  case "$PACKAGE_MANAGER" in
+  apt)
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit -D -t /usr/local/bin/
+    ;;
+  yum) sudo yum install -y lazygit ;;
+  dnf) sudo dnf install -y lazygit ;;
+  pacman) sudo pacman -Sy --noconfirm lazygit ;;
+  apk) sudo apk add lazygit ;;
+  brew) brew install lazygit ;;
+  *)
+    echo "❌ No supported package manager found. Install Lazygit manually."
+    ;;
+  esac
+else
+  echo "✅ Lazygit already installed."
+fi
 
 # Install Tmux
 if ! command_exists tmux; then
