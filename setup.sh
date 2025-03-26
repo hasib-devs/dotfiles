@@ -90,15 +90,15 @@ if [ -f "$HOME/.tmux.conf" ]; then
   rm "$HOME/.tmux.conf"
 fi
 
-if [ -d "$HOME/.zshrc" ]; then
+if [ -f "$HOME/.zshrc" ]; then
   rm "$HOME/.zshrc"
 fi
 
-if [ -d "$HOME/.gitconfig" ]; then
+if [ -f "$HOME/.gitconfig" ]; then
   rm "$HOME/.gitconfig"
 fi
 
-if [ -d "$HOME/.p10k.zsh" ]; then
+if [ -f "$HOME/.p10k.zsh" ]; then
   rm "$HOME/.p10k.zsh"
 fi
 
