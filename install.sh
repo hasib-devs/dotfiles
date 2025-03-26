@@ -14,6 +14,8 @@ if ! command_exists nvim; then
     chmod u+x nvim-linux-x86_64.appimage
     mkdir -p /opt/nvim
     mv nvim-linux-x86_64.appimage /opt/nvim/nvim
+    # Add path to zshrc
+    echo 'export PATH=$PATH:/opt/nvim' >>~/.zshrc
     ;;
   yum) sudo yum install -y neovim ;;
   dnf) sudo dnf install -y neovim ;;
