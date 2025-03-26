@@ -77,11 +77,11 @@ fi
 if ! command_exists php; then
   echo "📦 Installing PHP..."
   case "$PACKAGE_MANAGER" in
-  apt) sudo apt update && sudo apt install -y php ;;
-  yum) sudo yum install -y php ;;
-  dnf) sudo dnf install -y php ;;
-  pacman) sudo pacman -Sy --noconfirm php ;;
-  apk) sudo apk add php ;;
+  apt) sudo apt update && sudo apt install -y php && sudo apt install -y php-cli ;;
+  yum) sudo yum install -y php && sudo yum install -y php-cli ;;
+  dnf) sudo dnf install -y php && sudo dnf install -y php-cli ;;
+  pacman) sudo pacman -Sy --noconfirm php php-cli ;;
+  apk) sudo apk add php php-cli ;;
   brew) brew install php ;;
   *)
     echo "❌ Unsupported package manager. Please install PHP manually."
@@ -104,12 +104,33 @@ fi
 if ! command_exists go; then
   echo "📦 Installing Go..."
   case "$PACKAGE_MANAGER" in
-  apt) sudo apt update && sudo apt install -y golang ;;
-  yum) sudo yum install -y golang ;;
-  dnf) sudo dnf install -y golang ;;
-  pacman) sudo pacman -Sy --noconfirm go ;;
-  apk) sudo apk add go ;;
-  brew) brew install go ;;
+  apt)
+    GO_VERSION=$(curl -s "https://go.dev/VERSION?m=text")
+    curl -LO "https://go.dev/dl/${GO_VERSION}.linux-amd64.tar.gz"
+    sudo tar -C /usr/local -xzf "${GO_VERSION}.linux-amd64.tar.gz"
+    rm "${GO_VERSION}.linux-amd64.tar.gz"
+    ;;
+  yum | dnf)
+    GO_VERSION=$(curl -s "https://go.dev/VERSION?m=text")
+    curl -LO "https://go.dev/dl/${GO_VERSION}.linux-amd64.tar.gz"
+    sudo tar -C /usr/local -xzf "${GO_VERSION}.linux-amd64.tar.gz"
+    rm "${GO_VERSION}.linux-amd64.tar.gz"
+    ;;
+  pacman)
+    GO_VERSION=$(curl -s "https://go.dev/VERSION?m=text")
+    curl -LO "https://go.dev/dl/${GO_VERSION}.linux-amd64.tar.gz"
+    sudo tar -C /usr/local -xzf "${GO_VERSION}.linux-amd64.tar.gz"
+    rm "${GO_VERSION}.linux-amd64.tar.gz"
+    ;;
+  apk)
+    GO_VERSION=$(curl -s "https://go.dev/VERSION?m=text")
+    curl -LO "https://go.dev/dl/${GO_VERSION}.linux-amd64.tar.gz"
+    sudo tar -C /usr/local -xzf "${GO_VERSION}.linux-amd64.tar.gz"
+    rm "${GO_VERSION}.linux-amd64.tar.gz"
+    ;;
+  brew)
+    brew install go
+    ;;
   *)
     echo "❌ Unsupported package manager. Please install Go manually."
     exit 1
