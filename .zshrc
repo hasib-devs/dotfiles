@@ -22,7 +22,8 @@ alias p='cd $HOME/Desktop/projects'
 alias t='cd $HOME/Desktop/testing'
 alias r='cd $HOME/Desktop/repo'
 alias ww='cd $HOME/Desktop/www'
-alias v=nvim
+alias v=nvim-kick
+alias va=nvim-astro
 alias c=clear
 alias lg=lazygit
 alias art='php artisan'
@@ -50,16 +51,13 @@ esac
 # pnpm end
 
 # Config Switcher
-alias nvim-default="NVIM_APPNAME=nvim nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"
-# alias nvim-chad="NVIM_APPNAME=NvChad nvim"
 alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
 
 function nvims() {
   items=("default" "kickstart" "AstroNvim")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
-    echo "Nothing selected"
     return 0
   elif [[ $config == "default" ]]; then
     config=""

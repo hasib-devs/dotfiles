@@ -3,16 +3,9 @@
 echo "🛠️ Setting up your development environment..."
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 # Remove existing directories/files
-if [ -d "$HOME/.config/nvim" ]; then
-  rm -rf "$HOME/.config/nvim"
-fi
 
 if [ -f "$HOME/.tmux.conf" ]; then
   rm -rf "$HOME/.tmux.conf"
-fi
-
-if [ -d "$HOME/.tmux" ]; then
-  rm -rf "$HOME/.tmux"
 fi
 
 if [ -d "$HOME/.zshrc" ]; then
@@ -23,11 +16,36 @@ if [ -d "$HOME/.gitconfig" ]; then
   rm -rf "$HOME/.gitconfig"
 fi
 
+if [ -d "$HOME/.p10k.zsh" ]; then
+  rm -rf "$HOME/.p10k.zsh"
+fi
+
+if [ -d "$HOME/.config/nvim" ]; then
+  rm -rf "$HOME/.config/nvim"
+fi
+
+if [ -d "$HOME/.config/kickstart" ]; then
+  rm -rf "$HOME/.config/kickstart"
+fi
+
+if [ -d "$HOME/.config/AstroNvim" ]; then
+  rm -rf "$HOME/.config/AstroNvim"
+fi
+
+if [ -d "$HOME/.tmux" ]; then
+  rm -rf "$HOME/.tmux"
+fi
+
 # Symlink essential dotfiles
-ln -sf "$DOTFILES/.zshrc" "$HOME/.zshrc"
-ln -sf "$DOTFILES/.p10k.zsh" "$HOME/.p10k.zsh"
-ln -sf "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
-ln -sf "$DOTFILES/.tmux.conf" "$HOME/.tmux.conf"
+ln -s "$DOTFILES/.zshrc" "$HOME/.zshrc"
+ln -s "$DOTFILES/.p10k.zsh" "$HOME/.p10k.zsh"
+ln -s "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
+ln -s "$DOTFILES/.tmux.conf" "$HOME/.tmux.conf"
+
+ln -s "$DOTFILES/nvim" "$HOME/.config/nvim"
+ln -s "$DOTFILES/kickstart" "$HOME/.config/kickstart"
+ln -s "$DOTFILES/AstroNvim" "$HOME/.config/AstroNvim"
+
 echo "🔗 Symlink complete"
 
 # Helper function: Check if a command exists
