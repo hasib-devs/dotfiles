@@ -41,6 +41,14 @@ else
   echo "✅ Node.js already installed: $(node -v)"
 fi
 
+# Install PNPM (Node Package Manager) if not present
+if ! command_exists pnpm; then
+  echo "📦 Installing PNPM..."
+  npm install -g pnpm
+else
+  echo "✅ PNPM already installed: $(pnpm -v)"
+fi
+
 # Step Install Deno if not present
 # if ! command_exists deno; then
 #   echo "📥 Installing Deno..."
