@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Source the utils.sh file to use its functions
 source "./utils.sh"
 
