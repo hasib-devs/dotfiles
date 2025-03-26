@@ -9,13 +9,7 @@ PACKAGE_MANAGER=$(detect_package_manager)
 if ! command_exists nvim; then
   echo "📦 Installing Neovim..."
   case "$PACKAGE_MANAGER" in
-  apt)
-    apt update
-    apt install -y wget ninja-build gettext cmake software-properties-common
-    add-apt-repository ppa:neovim-ppa/stable
-    apt update
-    apt install -y neovim
-    ;;
+  apt) apt install neovim -y ;;
   yum) sudo yum install -y neovim ;;
   dnf) sudo dnf install -y neovim ;;
   pacman) sudo pacman -Sy --noconfirm neovim ;;
