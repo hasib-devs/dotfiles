@@ -10,11 +10,11 @@ if ! command_exists nvim; then
   echo "📦 Installing Neovim..."
   case "$PACKAGE_MANAGER" in
   apt)
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-    sudo rm -rf /opt/nvim
-    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-
-    sudo ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+    apt update
+    apt install -y wget ninja-build gettext cmake software-properties-common
+    add-apt-repository ppa:neovim-ppa/unstable
+    apt update
+    apt install -y neovim
     ;;
   yum) sudo yum install -y neovim ;;
   dnf) sudo dnf install -y neovim ;;
