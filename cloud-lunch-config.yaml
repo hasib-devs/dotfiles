@@ -1,0 +1,128 @@
+
+name: Dokan Cloud
+windows:
+  - tabs:
+      - title: "Storefront:0"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/storefront
+          commands:
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 pnpm dev --port=3000 --turbo
+
+      - title: "Dashboard:1"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/dashboard
+          commands:
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 pnpm dev --port=3001
+
+      - title: "Auth:2"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/auth-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3002 pnpm start
+
+      - title: "User:3"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/user-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3003 pnpm start
+
+      - title: "Cart:4"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/cart-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3004 pnpm start
+
+      - title: "Catalog:5"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/catalog-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3005 pnpm start
+
+      - title: "Order:6:"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/order-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3006 pnpm start
+
+      - title: "Payment:7"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/payment-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3007 pnpm start
+
+      - title: "Tax:8"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/tax-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3008 pnpm start
+
+      - title: "Notification:9"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/notification-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3009 pnpm start
+
+      - title: "Content:10"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/content-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3010 pnpm start
+
+      - title: "Integration:11"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/integration-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3011 pnpm start
+
+      - title: "Report:12"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/report-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3012 pnpm start
+
+      - title: "Coupon:13"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/coupon-service
+          commands:
+            - exec: rm -rf dist
+            - exec: pnpm build
+            - exec: NODE_TLS_REJECT_UNAUTHORIZED=0 APP_PORT=3013 pnpm start
+
+      - title: "Shipping:14"
+        layout:
+          cwd: /Users/hasib/Desktop/projects/shipping-service
+          commands:
+            # - exec: APP_PORT=3014 air
+            - exec: APP_PORT=3014 go run ./cmd/api
+
+      - title: Horizon
+        layout:
+          cwd: /Users/hasib/Desktop/projects/dokan-app
+          commands:
+            - exec: php artisan horizon
+
+      - title: App
+        layout:
+          cwd: /Users/hasib/Desktop/projects/dokan-app
