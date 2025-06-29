@@ -1,629 +1,334 @@
 # Dotfiles
 
-A comprehensive, modular Neovim configuration with advanced features for web development and DevOps workflows. This setup includes automatic system configuration scripts for fresh Linux and macOS installations.
+A comprehensive dotfiles configuration for development environments, featuring a modular Neovim setup with modern plugins and automated system configuration scripts.
 
-## 🚀 Quick Start
+## 🚀 Features
 
-### For Fresh Systems
+### Neovim Configuration
 
-1. **Clone the repository:**
+- **Plugin-Based Architecture**: Fully modular plugin system using Lazy.nvim
+- **Modern Development Environment**: Complete IDE-like experience with LSP support
+- **OneDark Theme**: Beautiful dark theme with enhanced visual feedback
+- **Advanced Navigation**: Telescope fuzzy finder, Harpoon quick navigation, LSP Saga
+- **Multi-Language Support**: TypeScript, Go, Rust, Python, Lua, and more
+- **Git Integration**: Gitsigns, diff view, and conflict resolution
+- **Performance Optimized**: Lazy loading and efficient resource usage
 
-   ```bash
-   git clone https://github.com/hasib-devs/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
-   ```
+### Plugin Modules
 
-2. **Run the automatic setup:**
+- **Completion**: nvim-cmp with LSP integration and snippets
+- **Multi-language**: Mason, LSP servers, Conform.nvim formatting
+- **Code Actions**: Advanced code action and refactoring support
+- **Symbol Navigation**: LSP Saga for enhanced symbol navigation
+- **Development**: DAP debugging and development tools
+- **UI Enhancements**: OneDark theme, Lualine, Neo-tree file explorer
+- **Search**: Telescope fuzzy finder and Harpoon navigation
+- **Text Manipulation**: Comments, surround, auto-pairs, case conversion
+- **Project Management**: Neo-tree, project detection, workspace management
+- **Performance**: Performance monitoring and optimization tools
+- **Git**: Gitsigns, blame, diff, and conflict resolution
+- **Window Management**: Smart splits, terminal integration, window navigation
+- **Editing Enhancements**: Treesitter, text objects, and advanced editing
 
-   ```bash
-   ./setup.sh
-   ```
+### System Tools
 
-   This will automatically:
+- **Shell Configuration**: Enhanced shell setup with aliases and functions
+- **Git Configuration**: Optimized Git settings and workflow
+- **SSH Setup**: Secure SSH configuration and key management
+- **tmux Integration**: Terminal multiplexer with TPM and custom config
+- **Performance Monitoring**: System and development monitoring tools
+- **Development Tools**: Node.js, Go, Rust, Python, and more
 
-   - Detect your operating system (Linux/macOS)
-   - Install all necessary development tools
-   - Configure Neovim with advanced features
-   - Set up shell configurations (bash/zsh)
-   - Configure Git with aliases and settings
-   - Set up SSH keys and configuration
-   - Install language servers for development
+## 📦 Installation
 
-### For Existing Systems
-
-If you only want to set up specific components:
-
-```bash
-# Only setup Neovim
-./setup.sh --neovim-only
-
-# Only setup tmux
-./setup.sh --tmux-only
-
-# Only setup performance monitoring
-./setup.sh --performance-only
-
-# Only setup shell configuration
-./setup.sh --shell-only
-
-# Only run OS-specific setup
-./setup.sh --os-only
-
-# Skip backup step
-./setup.sh --skip-backup
-```
-
-## 📋 What's Included
-
-### 🛠️ System Setup
-
-- **macOS**: Homebrew, essential tools, GUI apps, system preferences
-- **Linux**: Package managers (apt, dnf, yum, pacman), development tools
-- **Common**: Programming languages, language servers, development utilities
-- **Node.js**: Installed via NVM for latest LTS versions and version management
-- **Development Tools**: Installed from official sources (Terraform, kubectl, Helm, AWS CLI, Docker, Go) for latest versions
-
-### 🎯 Neovim Configuration
-
-- **Plugin-free**: Pure Lua configuration for maximum performance
-- **LSP Support**: TypeScript, Python, Go, Rust, and more
-- **Advanced Features**:
-  - Fuzzy file finding and project-wide search
-  - Git integration with blame, diff, status
-  - Advanced text manipulation and multiple cursors
-  - Project management and workspace handling
-  - Testing integration for multiple languages
-  - Performance monitoring and optimization
-
-### 🐚 Shell Configuration
-
-- **Bash & Zsh**: Optimized configurations with aliases
-- **Oh My Zsh**: Enhanced shell experience with plugins
-- **Custom Aliases**: Development, Git, Docker, Kubernetes shortcuts
-
-### 🔧 Development Tools
-
-- **Git**: Comprehensive configuration with aliases and hooks
-- **SSH**: Key management and service configuration
-- **Language Servers**: Full IDE-like experience for multiple languages
-
-## 🎮 Features
-
-### **Core Development Tools**
-
-- **Node.js** (via NVM for latest versions)
-- **pnpm** (fast, disk space efficient package manager)
-- **Python 3** with pip and virtual environments
-- **PHP 8.4** with essential extensions (Redis, Xdebug, Imagick, etc.)
-- **Go** (latest version from official source)
-- **Rust** (via rustup)
-- **Docker** (latest version from official source)
-- **Terraform** (latest version from official source)
-- **kubectl** (latest version from official source)
-- **Helm** (latest version from official source)
-- **AWS CLI** (latest version from official source)
-- **GitHub CLI** (latest version from official source)
-
-### **Development Environment**
-
-- **Neovim** with modular Lua configuration
-- **tmux** with TPM (Tmux Plugin Manager) and optimized configuration
-- **Performance monitoring** with system and development tools
-- **Git** with optimized configuration
-- **SSH** key generation and configuration
-- **Shell** configuration (bash/zsh)
-- **Language servers** for enhanced development experience
-
-### Advanced Search & Navigation
-
-- **Fuzzy File Finder**: `Ctrl+P` - Find files instantly
-- **Project Search**: `Ctrl+Shift+F` - Search across entire project
-- **Recent Files**: `Ctrl+Shift+R` - Quick access to recent files
-- **Buffer Picker**: `Ctrl+B` - Switch between open buffers
-- **Line Jumping**: `Ctrl+G` - Jump to specific line numbers
-- **Bookmarks**: `Ctrl+M` - Save and jump to bookmarks
-
-### Git Integration
-
-- **Status**: `Space+g+s` - View Git status
-- **Blame**: `Space+g+b` - Show line-by-line blame
-- **Diff**: `Space+g+d` - View changes
-- **Branch**: `Space+g+b` - Manage branches
-- **Commit**: `Space+g+c` - Create commits
-- **Push/Pull**: `Space+g+p` - Push and pull changes
-- **Stash**: `Space+g+t` - Manage stashes
-
-### Advanced Text Manipulation
-
-- **Multiple Cursors**: `Ctrl+N` - Add multiple cursors
-- **Text Objects**: Enhanced text object selection
-- **Macro Management**: Record and replay macros
-- **Code Folding**: `Space+z` - Fold/unfold code blocks
-- **Text Transformations**: `Space+t` - Transform text case, format
-- **Comment Management**: `Space+c` - Toggle comments
-
-### Project Management
-
-- **Project Detection**: Automatic project type detection
-- **Workspace Management**: `Space+p+w` - Manage workspaces
-- **Build Automation**: `Space+p+b` - Run build commands
-- **Templates**: `Space+p+t` - Use project templates
-- **Environment Management**: `Space+p+e` - Manage environments
-
-### Testing Integration
-
-- **Multi-language Support**: Jest, Mocha, pytest, unittest, go test, cargo test
-- **Test Execution**: `Space+t+r` - Run tests
-- **Coverage**: `Space+t+c` - View test coverage
-- **Watch Mode**: `Space+t+w` - Run tests in watch mode
-- **Debugging**: `Space+t+d` - Debug tests
-
-### Performance Optimization
-
-- **Real-time Monitoring**: `Space+p+m` - Monitor performance
-- **Resource Tracking**: Track memory and CPU usage
-- **Optimization Suggestions**: Get performance tips
-- **Startup Analysis**: Analyze Neovim startup time
-- **Profiling**: Profile code execution
-
-## 🔧 Command Line Options
-
-The setup script supports various options for selective installation:
+### Quick Setup
 
 ```bash
-# Full setup (default)
+# Clone the repository
+git clone <repository-url> ~/.dotfiles
+cd ~/.dotfiles
+
+# Run the full setup
 ./setup.sh
 
-# Only backup existing configurations
-./setup.sh --backup
-
-# Skip backup step
-./setup.sh --skip-backup
-
-# Only run OS-specific setup
-./setup.sh --os-only
-
-# Only setup Neovim
-./setup.sh --neovim-only
-
-# Only setup tmux
-./setup.sh --tmux-only
-
-# Only setup performance monitoring
-./setup.sh --performance-only
-
-# Only setup shell configuration
-./setup.sh --shell-only
-
-# Show help
-./setup.sh --help
+# Or run individual components
+./setup.sh --neovim-only    # Only setup Neovim
+./setup.sh --tmux-only      # Only setup tmux
+./setup.sh --performance-only # Only setup performance monitoring
 ```
 
-## 🔧 Setup Scripts
-
-### Main Setup (`setup.sh`)
-
-The main orchestrator that runs all setup steps:
-
-- OS detection and validation
-- Backup existing configurations
-- Run OS-specific setup
-- Configure all components
-- Provide completion instructions
-
-### OS-Specific Scripts
-
-- **`scripts/setup_macos.sh`**: macOS-specific installation and configuration
-- **`scripts/setup_linux.sh`**: Linux distribution-specific setup
-
-### Component Scripts
-
-- **`scripts/setup_common.sh`**: Shared configurations and tools
-- **`scripts/setup_neovim.sh`**: Neovim installation and configuration
-- **`scripts/setup_tmux.sh`**: Tmux installation and configuration
-- **`scripts/setup_performance.sh`**: Performance monitoring setup
-- **`scripts/setup_shell.sh`**: Shell configuration and aliases
-- **`scripts/setup_git.sh`**: Git configuration and user setup
-- **`scripts/setup_ssh.sh`**: SSH keys and service configuration
-- **`scripts/setup_final.sh`**: Final utilities and completion
-
-## 🛠️ Available Utilities
-
-After setup, you'll have access to these utilities:
+### Manual Setup
 
 ```bash
-# Show completion instructions
-dotfiles-complete
+# Setup Neovim only
+bash scripts/setup_neovim.sh
 
-# Update dotfiles
-dotfiles-update
+# Setup tmux only
+bash scripts/setup_tmux.sh
 
-# Show system information
-system-info
+# Setup performance monitoring
+bash scripts/setup_performance.sh
 
-# Manage SSH keys
-ssh-key-manager
+# Setup shell configuration
+bash scripts/setup_shell.sh
 
-# Check development environment
-dev-check
-```
+# Setup Git configuration
+bash scripts/setup_git.sh
 
-## 📁 Project Structure
-
-```
-dotfiles/
-├── setup.sh                 # Main setup script
-├── .tmux.conf              # Tmux configuration
-├── scripts/                 # Setup scripts
-│   ├── setup_macos.sh      # macOS setup
-│   ├── setup_linux.sh      # Linux setup
-│   ├── setup_common.sh     # Common setup
-│   ├── setup_neovim.sh     # Neovim setup
-│   ├── setup_tmux.sh       # Tmux setup
-│   ├── setup_performance.sh # Performance monitoring setup
-│   ├── setup_shell.sh      # Shell setup
-│   ├── setup_git.sh        # Git setup
-│   ├── setup_ssh.sh        # SSH setup
-│   └── setup_final.sh      # Final setup
-├── nvim/                   # Neovim configuration
-│   ├── init.lua           # Main Neovim config
-│   ├── lua/
-│   │   ├── core/          # Core settings
-│   │   └── features/      # Feature modules
-│   └── README.md          # Neovim documentation
-└── README.md              # This file
+# Setup SSH configuration
+bash scripts/setup_ssh.sh
 ```
 
 ## 🎯 Key Bindings
 
-### Navigation
+### Neovim
 
-- `Ctrl+P` - Fuzzy file finder
-- `Ctrl+Shift+F` - Project-wide search
-- `Ctrl+Shift+R` - Recent files
-- `Ctrl+B` - Buffer picker
-- `Ctrl+G` - Line jumping
-- `Ctrl+M` - Bookmarks
+#### Basic Operations
 
-### Git (Space+g)
+- **`<leader>w`** - Save file
+- **`<leader>W`** - Save all files
+- **`<leader>q`** - Quit
+- **`<leader>Q`** - Quit all
+- **`<leader>wq`** - Save and quit
+- **`<leader>wQ`** - Save all and quit
 
-- `s` - Status
-- `b` - Blame
-- `d` - Diff
-- `c` - Commit
-- `p` - Push/Pull
-- `t` - Stash
+#### File & Buffer Management
 
-### Text Manipulation (Space+t)
+- **`<leader>e`** - Toggle file explorer (Neo-tree)
+- **`<leader>ff`** - Find files (Telescope)
+- **`<leader>fg`** - Live grep (Telescope)
+- **`<leader>fb`** - Find buffer (Telescope)
+- **`<leader>h/l`** - Previous/Next buffer
 
-- `m` - Multiple cursors
-- `f` - Code folding
-- `t` - Text transformations
-- `c` - Comments
+#### Navigation
 
-### Project Management (Space+p)
+- **`<C-h/j/k/l>`** - Navigate between windows
+- **`gd`** - Go to definition
+- **`gr`** - Show references
+- **`K`** - Hover documentation
+- **`<leader>rn`** - Rename symbol
+- **`<leader>ca`** - Code actions
 
-- `w` - Workspace management
-- `b` - Build automation
-- `t` - Templates
-- `e` - Environment management
+#### Search & Navigation
 
-### Testing (Space+t)
+- **`<leader>a`** - Add file to Harpoon
+- **`<leader>1-4`** - Go to Harpoon file 1-4
+- **`<leader>ss`** - Show Harpoon menu
 
-- `r` - Run tests
-- `c` - Coverage
-- `w` - Watch mode
-- `d` - Debug
+#### Text Manipulation
 
-## 🎯 Customization
+- **`<leader>/`** - Toggle comment
+- **`<leader>cs`** - Surround with
+- **`<leader>~`** - Toggle case
+- **`<A-j/k>`** - Move line up/down
 
-### Node.js Management with NVM
+#### Git Integration
 
-The setup installs Node.js via NVM (Node Version Manager) for better version control:
+- **`]c/[c`** - Next/Previous git hunk
+- **`<leader>hp`** - Preview git hunk
+- **`<leader>hs`** - Stage git hunk
 
-```bash
-# List installed Node.js versions
-nvm list
+### tmux
 
-# Install a specific version
-nvm install 18.17.0
+- **`Ctrl+b`** - Prefix key
+- **`Ctrl+b c`** - Create new window
+- **`Ctrl+b n`** - Next window
+- **`Ctrl+b p`** - Previous window
+- **`Ctrl+b %`** - Split vertically
+- **`Ctrl+b "`** - Split horizontally
+- **`Ctrl+b h/j/k/l`** - Navigate panes
 
-# Use a specific version
-nvm use 18.17.0
+## 🔧 Configuration
 
-# Set default version
-nvm alias default 18.17.0
+### Neovim Structure
 
-# Install latest LTS
-nvm install --lts
+```
+nvim/
+├── init.lua                 # Main entry point and basic settings
+├── lua/
+│   └── plugins/            # Plugin modules
+│       ├── init.lua        # Plugin manager setup
+│       ├── completion.lua  # Code completion
+│       ├── multi_language.lua # LSP servers
+│       ├── code_actions.lua # Code actions
+│       ├── symbol_navigation.lua # Navigation
+│       ├── development.lua # Development tools
+│       ├── ui_enhancements.lua # UI improvements
+│       ├── search.lua      # Search tools
+│       ├── text_manipulation.lua # Text editing
+│       ├── project_management.lua # Project tools
+│       ├── performance.lua # Performance tools
+│       ├── git.lua         # Git integration
+│       ├── window_management.lua # Window management
+│       └── editing_enhancements.lua # Editing features
+├── lazy-lock.json         # Plugin lock file
+└── README.md              # Neovim documentation
 ```
 
-### Development Tool Management
+### Language Support
 
-The setup installs development tools from official sources to ensure latest versions:
+- **TypeScript/JavaScript**: Full LSP support with Prettier formatting
+- **Go**: gopls with goimports and gofumpt
+- **Rust**: rust-analyzer with rustfmt
+- **Python**: pyright with optional formatters
+- **Lua**: lua-language-server with stylua
+- **Shell**: bash-language-server with shfmt
+- **Web**: HTML, CSS, JSON, YAML with Prettier
+- **And more**: Docker, PHP, Ruby, etc.
 
-```bash
-# Check tool versions
-terraform --version
-kubectl version --client
-helm version
-aws --version
-docker --version
-go version
+### System Scripts
 
-# Update tools (when needed)
-# Terraform: Download new version from https://www.terraform.io/downloads
-# kubectl: Download from https://kubernetes.io/docs/tasks/tools/
-# Helm: Download from https://helm.sh/docs/intro/install/
-# AWS CLI: Download from https://aws.amazon.com/cli/
-# Docker: Update via Docker Desktop or download from https://www.docker.com/
-# Go: Download from https://go.dev/dl/
+```
+scripts/
+├── setup.sh               # Main setup script
+├── setup_neovim.sh        # Neovim configuration
+├── setup_shell.sh         # Shell configuration
+├── setup_git.sh           # Git configuration
+├── setup_ssh.sh           # SSH configuration
+├── setup_tmux.sh          # tmux configuration
+├── setup_performance.sh   # Performance monitoring
+├── setup_common.sh        # Common utilities
+├── setup_macos.sh         # macOS-specific setup
+└── setup_linux.sh         # Linux-specific setup
 ```
 
-### Neovim Configuration
+## 🛠️ Customization
 
-Edit `~/.config/nvim/` to customize Neovim:
+### Adding New Plugins
 
-- `init.lua` - Main configuration
-- `lua/core/` - Core settings
-- `lua/features/` - Feature modules
+1. Create a new module in `nvim/lua/plugins/`
+2. Add the module to the plugin list in `nvim/lua/plugins/init.lua`
+3. Configure the plugin in your new module
 
-### Tmux Configuration
+### Modifying Keymaps
 
-- `~/.tmux.conf` - Tmux configuration with TPM plugins
-- `~/.tmux/plugins/` - Tmux plugins directory
-- **Plugins included**:
-  - `tmux-plugins/tpm` - Plugin manager
-  - `christoomey/vim-tmux-navigator` - Seamless vim/tmux navigation
-  - `jimeh/tmux-themepack` - Beautiful themes
-  - `tmux-plugins/tmux-resurrect` - Session persistence
-  - `tmux-plugins/tmux-continuum` - Automatic session saving
+- Global keymaps: `nvim/init.lua`
+- Plugin-specific keymaps: Individual plugin modules
 
-### Shell Configuration
+### Changing Theme
 
-- `~/.bashrc` - Bash configuration
-- `~/.zshrc` - Zsh configuration
-- `~/.bash_aliases` - Shell aliases
+Edit `nvim/lua/plugins/ui_enhancements.lua` to change the colorscheme.
 
-### Git Configuration
+### System Configuration
 
-- `~/.gitconfig` - Git settings and aliases
-- `~/.gitignore_global` - Global ignore patterns
+- **Shell**: Edit `scripts/setup_shell.sh` for shell customization
+- **tmux**: Edit `scripts/setup_tmux.sh` for tmux configuration
+- **Git**: Edit `scripts/setup_git.sh` for Git settings
 
-## 🚨 Troubleshooting
+## 📋 Requirements
+
+### System Requirements
+
+- **Neovim**: Version 0.8.0 or higher
+- **Node.js**: For LSP servers and formatters
+- **Git**: For version control
+- **tmux**: For terminal multiplexing (optional)
+
+### Optional Tools
+
+- **Go**: For Go development
+- **Rust**: For Rust development
+- **Python**: For Python development
+- **pnpm/npm**: For Node.js tools
+- **Docker**: For container development
+- **Terraform**: For infrastructure as code
+- **kubectl**: For Kubernetes development
+- **Helm**: For Kubernetes package management
+- **AWS CLI**: For AWS development
+- **GitHub CLI**: For GitHub integration
+
+## 🔄 Updates
+
+### Updating Plugins
+
+```bash
+# Start Neovim and update plugins
+nvim
+:Lazy sync
+```
+
+### Updating Configuration
+
+```bash
+# Pull latest changes
+git pull origin main
+
+# Re-run setup for specific components
+./setup.sh --neovim-only
+```
+
+### Updating System Tools
+
+```bash
+# Update all system tools
+./setup.sh
+
+# Update specific components
+./setup.sh --performance-only
+```
+
+## 🐛 Troubleshooting
 
 ### Common Issues
 
-1. **Setup fails**: Check logs and run individual scripts
-2. **Neovim errors**: Check LSP installation and configuration
-3. **SSH issues**: Verify key generation and service configuration
-4. **Shell problems**: Restart terminal or source configuration files
-5. **Tmux plugins not working**: After tmux setup, start tmux and press `Ctrl+a` then `I` (capital I) to install plugins
+1. **Plugin errors**: Run `:Lazy sync` in Neovim
+2. **LSP not working**: Check if language servers are installed with `:Mason`
+3. **Performance issues**: Check `:Lazy profile` for slow plugins
+4. **Setup script errors**: Check system requirements and permissions
 
-### Backup and Recovery
+### Debug Mode
 
-- Backups are automatically created in `~/.dotfiles_backup_*`
-- **Backed up files include**:
-  - Shell configurations (`~/.bashrc`, `~/.zshrc`)
-  - Git configuration (`~/.gitconfig`)
-  - SSH configuration (`~/.ssh/config`)
-  - Neovim configuration (`~/.config/nvim`)
-  - Tmux configuration (`~/.tmux.conf`, `~/.tmux`)
-- Use `dotfiles-update` to update your configuration
+```bash
+# Start Neovim with debug info
+nvim --startuptime startup.log
 
-## 🤝 Contributing
+# Check setup script execution
+bash -x scripts/setup_neovim.sh
+```
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test the setup scripts
-5. Submit a pull request
+### System-Specific Issues
+
+#### macOS
+
+- Ensure Xcode Command Line Tools are installed
+- Check Homebrew installation
+- Verify shell is set to zsh
+
+#### Linux
+
+- Check package manager availability
+- Verify system dependencies
+- Ensure proper permissions
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
+## 🤝 Contributing
 
-- Neovim community for the excellent editor
-- Lua community for the powerful scripting language
-- All the developers who contributed to the tools and libraries used
+### Development Setup
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+### Code Style Guidelines
+
+- Use consistent indentation (2 spaces for Lua, 4 for shell)
+- Follow language-specific naming conventions
+- Add descriptive comments
+- Keep functions focused and small
+- Use meaningful variable names
+
+## 📞 Support
+
+- **Issues**: Report bugs and feature requests on GitHub
+- **Discussions**: Join community discussions for help
+- **Documentation**: Check README files and inline comments
+- **Examples**: See the configuration files for usage examples
 
 ---
 
 **Happy coding! 🚀**
-
-For detailed setup instructions, run `dotfiles-complete` after installation.
-
-## 📦 Package Managers
-
-### **Node.js Package Management**
-
-- **NVM**: Node Version Manager for installing and managing Node.js versions
-- **pnpm**: Fast, disk space efficient package manager (preferred over npm)
-- **npm**: Available as fallback if pnpm is not available
-
-### **System Package Managers**
-
-- **macOS**: Homebrew
-- **Ubuntu/Debian**: apt
-- **Fedora**: dnf
-- **CentOS/RHEL/Rocky/AlmaLinux**: yum/dnf
-- **Arch/Manjaro**: pacman
-
-### **Language-Specific Package Managers**
-
-- **Python**: pip3
-- **PHP**: Composer
-- **Go**: go install
-- **Rust**: cargo
-
-## 🛠️ Tools Installed
-
-### **Development Languages & Runtimes**
-
-- **Node.js**: Latest LTS via NVM
-- **pnpm**: Fast package manager for Node.js
-- **Python 3**: Latest version with pip
-- **PHP 8.4**: Latest version with essential extensions
-  - Redis extension
-  - Xdebug for debugging
-  - Imagick for image processing
-  - MySQL, PostgreSQL, SQLite support
-  - GD, cURL, mbstring, XML, ZIP, BCMath, Intl
-  - OPcache for performance
-- **Go**: Latest version from official source
-- **Rust**: Latest version via rustup
-
-### **DevOps & Cloud Tools**
-
-- **Docker**: Latest version from official source
-- **Terraform**: Latest version from official source
-- **kubectl**: Latest version from official source
-- **Helm**: Latest version from official source
-- **AWS CLI**: Latest version from official source
-- **GitHub CLI**: Latest version from official source
-
-### **Development Tools**
-
-- **Neovim**: Latest version with modular Lua configuration
-- **tmux**: Terminal multiplexer with TPM and optimized configuration
-- **Performance monitoring**: System and development environment monitoring tools
-- **Git**: Latest version with optimized configuration
-- **Composer**: PHP package manager
-- **Language servers**: For enhanced development experience
-
-## 🎯 Usage
-
-### **Node.js Development**
-
-```bash
-# Use pnpm for package management (recommended)
-pnpm install
-pnpm add package-name
-pnpm run dev
-
-# Or use npm as fallback
-npm install
-npm install package-name
-npm run dev
-```
-
-### **PHP Development**
-
-```bash
-# Check PHP version and extensions
-php --version
-php -m
-
-# Use Composer for PHP packages
-composer install
-composer require package-name
-composer update
-```
-
-### **Python Development**
-
-```bash
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
-# Install packages
-pip3 install package-name
-```
-
-### **Go Development**
-
-```bash
-# Initialize module
-go mod init project-name
-
-# Install dependencies
-go mod tidy
-go get package-name
-```
-
-### **Rust Development**
-
-```bash
-# Create new project
-cargo new project-name
-
-# Build and run
-cargo build
-cargo run
-```
-
-### **tmux Usage**
-
-```bash
-# Start tmux
-tmux
-
-# Attach to existing session
-tmux attach
-# or
-tma
-
-# List sessions
-tmux list-sessions
-# or
-tml
-
-# Create new session
-tmux new-session
-# or
-tmn
-
-# Kill session
-tmux kill-session
-# or
-tmk
-
-# Key bindings (prefix: Ctrl+a)
-# | - Split vertically
-# - - Split horizontally
-# j/k/h/l - Resize panes
-# m - Maximize/restore pane
-# l - Last window
-# r - Reload config
-
-# Install plugins (after first setup)
-# 1. Start tmux: tmux
-# 2. Press: Ctrl+a, then I (capital I)
-# 3. Wait for plugin installation to complete
-```
-
-### **Performance Monitoring**
-
-```bash
-# System health check
-system-health
-
-# Development environment performance test
-dev-performance
-
-# Real-time resource monitoring
-monitor-resources
-
-# Performance dashboard
-performance-dashboard
-
-# Enhanced system monitors
-htop      # Interactive process viewer
-btop      # Advanced system monitor
-glances   # Comprehensive system monitor
-
-# Language-specific profiling
-# Node.js
-clinic doctor -- node app.js
-autocannon -c 10 -d 5 http://localhost:3000
-
-# Python
-python -m memory_profiler script.py
-py-spy top -- python script.py
-
-# Go
-go tool pprof http://localhost:6060/debug/pprof/heap
-```

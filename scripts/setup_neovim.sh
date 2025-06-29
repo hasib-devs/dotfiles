@@ -70,9 +70,9 @@ copy_nvim_config() {
   log_success "Neovim configuration copied successfully"
 }
 
-# Install language servers
+# Install language servers and tools
 install_language_servers() {
-  log_info "Installing language servers for Neovim..."
+  log_info "Installing language servers and tools for Neovim..."
 
   # Source NVM if available
   if [[ -d "$HOME/.nvm" ]]; then
@@ -87,9 +87,9 @@ install_language_servers() {
     export PATH="$PNPM_HOME:$PATH"
   fi
 
-  # Node.js language servers
+  # Node.js language servers and tools
   if command -v pnpm &>/dev/null; then
-    log_info "Installing Node.js language servers via pnpm..."
+    log_info "Installing Node.js tools via pnpm..."
     pnpm add -g \
       typescript \
       typescript-language-server \
@@ -100,9 +100,12 @@ install_language_servers() {
       bash-language-server \
       dockerfile-language-server-nodejs \
       vscode-json-languageserver \
-      yaml-language-server
+      yaml-language-server \
+      prettier \
+      eslint \
+      tree-sitter-cli
   elif command -v npm &>/dev/null; then
-    log_info "Installing Node.js language servers via npm..."
+    log_info "Installing Node.js tools via npm..."
     npm install -g \
       typescript \
       typescript-language-server \
@@ -113,26 +116,31 @@ install_language_servers() {
       bash-language-server \
       dockerfile-language-server-nodejs \
       vscode-json-languageserver \
-      yaml-language-server
+      yaml-language-server \
+      prettier \
+      eslint \
+      tree-sitter-cli
   else
-    log_warning "Neither pnpm nor npm found. Node.js language servers will not be installed."
+    log_warning "Neither pnpm nor npm found. Node.js tools will not be installed."
     log_info "Please ensure NVM is properly configured and Node.js is installed."
   fi
 
-  # Python language server
+  # Python tools (optional - user can install if needed)
   if command -v pip3 &>/dev/null; then
-    log_info "Installing Python language server..."
+    log_info "Installing Python tools..."
     pip3 install python-lsp-server[all]
-    pip3 install black flake8 mypy isort ruff
+    # Note: black, flake8, isort are commented out in config but can be installed here
+    # pip3 install black flake8 mypy isort ruff
   else
-    log_warning "pip3 not found. Python language server will not be installed."
+    log_warning "pip3 not found. Python tools will not be installed."
   fi
 
   # Go tools
   if command -v go &>/dev/null; then
     log_info "Installing Go tools..."
     go install golang.org/x/tools/gopls@latest
-    go install github.com/go-delve/delve/cmd/dlv@latest
+    go install golang.org/x/tools/cmd/goimports@latest
+    go install mvdan.cc/gofumpt@latest
   else
     log_warning "Go not found. Go tools will not be installed."
   fi
@@ -145,52 +153,17 @@ install_language_servers() {
   else
     log_warning "rustup not found. Rust tools will not be installed."
   fi
-}
 
-# Install additional tools
-install_additional_tools() {
-  log_info "Installing additional tools for Neovim..."
-
-  # Source NVM if available
-  if [[ -d "$HOME/.nvm" ]]; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  # Additional formatters
+  if command -v cargo &>/dev/null; then
+    log_info "Installing Rust formatters..."
+    cargo install stylua
   fi
 
-  # Source pnpm if available
-  if [[ -d "$HOME/.local/share/pnpm" ]]; then
-    export PNPM_HOME="$HOME/.local/share/pnpm"
-    export PATH="$PNPM_HOME:$PATH"
-  fi
-
-  # Install tree-sitter CLI (for syntax highlighting)
-  if command -v pnpm &>/dev/null; then
-    log_info "Installing tree-sitter CLI via pnpm..."
-    pnpm add -g tree-sitter-cli
-  elif command -v npm &>/dev/null; then
-    log_info "Installing tree-sitter CLI via npm..."
-    npm install -g tree-sitter-cli
-  fi
-
-  # Install additional formatters
-  if command -v pnpm &>/dev/null; then
-    log_info "Installing additional formatters via pnpm..."
-    pnpm add -g prettier eslint
-  elif command -v npm &>/dev/null; then
-    log_info "Installing additional formatters via npm..."
-    npm install -g prettier eslint
-  fi
-
-  # Install additional Python tools
-  if command -v pip3 &>/dev/null; then
-    log_info "Installing additional Python tools..."
-    pip3 install \
-      pylsp-mypy \
-      pylsp-rope \
-      python-lsp-black \
-      python-lsp-isort \
-      python-lsp-ruff
+  if command -v shfmt &>/dev/null; then
+    log_info "shfmt found"
+  else
+    log_info "shfmt not found. Install with: go install mvdan.cc/sh/v3/cmd/shfmt@latest"
   fi
 }
 
@@ -241,143 +214,26 @@ create_nvim_aliases() {
   log_success "Neovim aliases created"
 }
 
-# Install additional plugins (if using plugin manager)
-install_plugins() {
-  log_info "Installing Neovim plugins..."
-
-  # Create plugins directory if it doesn't exist
-  local plugins_dir="$HOME/.local/share/nvim/site/pack/packer/start"
-  mkdir -p "$plugins_dir"
-
-  # Install lazy.nvim (plugin manager)
-  if [[ ! -d "$plugins_dir/lazy.nvim" ]]; then
-    log_info "Installing lazy.nvim plugin manager..."
-    git clone --filter=blob:none https://github.com/folke/lazy.nvim.git --branch=stable "$plugins_dir/lazy.nvim"
-  fi
-
-  log_success "Plugin manager installed"
-}
-
-# Create Neovim configuration
-create_plugins_config() {
-  log_info "Creating plugins configuration..."
-
-  local nvim_config_dir="$HOME/.config/nvim"
-  local plugins_file="$nvim_config_dir/lua/plugins.lua"
-
-  # Create plugins.lua if it doesn't exist
-  if [[ ! -f "$plugins_file" ]]; then
-    cat >"$plugins_file" <<'EOF'
--- =============================================================================
--- Plugins Configuration
--- =============================================================================
-
-return {
-    -- Plugin manager
-    {
-        "folke/lazy.nvim",
-        version = "*",
-    },
-    
-    -- Colorscheme
-    {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd([[colorscheme tokyonight]])
-        end,
-    },
-    
-    -- LSP
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
-        },
-    },
-    
-    -- Treesitter
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-    },
-    
-    -- Telescope (fuzzy finder)
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-    },
-    
-    -- Git integration
-    {
-        "lewis6991/gitsigns.nvim",
-    },
-    
-    -- Status line
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-    },
-    
-    -- File explorer
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-    },
-    
-    -- Comments
-    {
-        "numToStr/Comment.nvim",
-    },
-    
-    -- Surround
-    {
-        "kylechui/nvim-surround",
-    },
-    
-    -- Auto pairs
-    {
-        "windwp/nvim-autopairs",
-    },
-    
-    -- Indent guides
-    {
-        "lukas-reineke/indent-blankline.nvim",
-    },
-}
-EOF
-    log_success "Plugins configuration created"
-  fi
-}
-
 # Main Neovim setup
 main() {
   check_neovim
   create_nvim_config
   copy_nvim_config
   install_language_servers
-  install_additional_tools
   create_nvim_data
-  create_plugins_config
-  install_plugins
   create_nvim_aliases
   test_nvim_config
 
   log_success "Neovim setup completed successfully!"
   log_info "You can now start Neovim with: nvim"
-  log_info "First run will install plugins automatically"
+  log_info "First run will install plugins automatically via lazy.nvim"
+  log_info ""
+  log_info "Key features available:"
+  log_info "  - File explorer: <leader>e"
+  log_info "  - Fuzzy finder: <leader>ff"
+  log_info "  - Save file: <leader>w"
+  log_info "  - Quit: <leader>q"
+  log_info "  - LSP features: gd, K, <leader>ca, etc."
 }
 
 main "$@"
