@@ -4,10 +4,6 @@
 # Tmux Setup Script
 # =============================================================================
 
-# Source common functions
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/../setup.sh"
-
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -51,7 +47,8 @@ install_tmux_config() {
   log_info "Installing tmux configuration..."
 
   local config_file="$HOME/.tmux.conf"
-  local source_config="$(pwd)/.tmux.conf"
+  local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  local source_config="$script_dir/../.tmux.conf"
 
   if [[ -f "$source_config" ]]; then
     # Create backup if config already exists
@@ -76,16 +73,11 @@ install_tmux_config() {
 install_tmux_plugins() {
   log_info "Installing tmux plugins..."
 
-  # Start a tmux session to install plugins
   if command -v tmux &>/dev/null; then
-    # Create a temporary session to install plugins
-    tmux new-session -d -s temp_session
-    tmux send-keys -t temp_session "tmux source-file ~/.tmux.conf" Enter
-    tmux send-keys -t temp_session "prefix + I" Enter # Install plugins
-    sleep 5                                           # Wait for plugin installation
-    tmux kill-session -t temp_session
-
-    log_success "Tmux plugins installed"
+    log_info "Please manually install plugins by:"
+    log_info "1. Start tmux: tmux"
+    log_info "2. Press: Ctrl+a, then I (capital I)"
+    log_info "3. Wait for plugin installation to complete"
   else
     log_warning "tmux not found. Please install tmux first."
     return 1

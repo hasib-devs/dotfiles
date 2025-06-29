@@ -37,6 +37,9 @@ If you only want to set up specific components:
 # Only setup Neovim
 ./setup.sh --neovim-only
 
+# Only setup tmux
+./setup.sh --tmux-only
+
 # Only setup shell configuration
 ./setup.sh --shell-only
 
@@ -159,6 +162,36 @@ If you only want to set up specific components:
 - **Startup Analysis**: Analyze Neovim startup time
 - **Profiling**: Profile code execution
 
+## 🔧 Command Line Options
+
+The setup script supports various options for selective installation:
+
+```bash
+# Full setup (default)
+./setup.sh
+
+# Only backup existing configurations
+./setup.sh --backup
+
+# Skip backup step
+./setup.sh --skip-backup
+
+# Only run OS-specific setup
+./setup.sh --os-only
+
+# Only setup Neovim
+./setup.sh --neovim-only
+
+# Only setup tmux
+./setup.sh --tmux-only
+
+# Only setup shell configuration
+./setup.sh --shell-only
+
+# Show help
+./setup.sh --help
+```
+
 ## 🔧 Setup Scripts
 
 ### Main Setup (`setup.sh`)
@@ -180,6 +213,7 @@ The main orchestrator that runs all setup steps:
 
 - **`scripts/setup_common.sh`**: Shared configurations and tools
 - **`scripts/setup_neovim.sh`**: Neovim installation and configuration
+- **`scripts/setup_tmux.sh`**: Tmux installation and configuration
 - **`scripts/setup_shell.sh`**: Shell configuration and aliases
 - **`scripts/setup_git.sh`**: Git configuration and user setup
 - **`scripts/setup_ssh.sh`**: SSH keys and service configuration
@@ -211,11 +245,13 @@ dev-check
 ```
 dotfiles/
 ├── setup.sh                 # Main setup script
+├── .tmux.conf              # Tmux configuration
 ├── scripts/                 # Setup scripts
 │   ├── setup_macos.sh      # macOS setup
 │   ├── setup_linux.sh      # Linux setup
 │   ├── setup_common.sh     # Common setup
 │   ├── setup_neovim.sh     # Neovim setup
+│   ├── setup_tmux.sh       # Tmux setup
 │   ├── setup_shell.sh      # Shell setup
 │   ├── setup_git.sh        # Git setup
 │   ├── setup_ssh.sh        # SSH setup
@@ -323,6 +359,17 @@ Edit `~/.config/nvim/` to customize Neovim:
 - `lua/core/` - Core settings
 - `lua/features/` - Feature modules
 
+### Tmux Configuration
+
+- `~/.tmux.conf` - Tmux configuration with TPM plugins
+- `~/.tmux/plugins/` - Tmux plugins directory
+- **Plugins included**:
+  - `tmux-plugins/tpm` - Plugin manager
+  - `christoomey/vim-tmux-navigator` - Seamless vim/tmux navigation
+  - `jimeh/tmux-themepack` - Beautiful themes
+  - `tmux-plugins/tmux-resurrect` - Session persistence
+  - `tmux-plugins/tmux-continuum` - Automatic session saving
+
 ### Shell Configuration
 
 - `~/.bashrc` - Bash configuration
@@ -342,12 +389,18 @@ Edit `~/.config/nvim/` to customize Neovim:
 2. **Neovim errors**: Check LSP installation and configuration
 3. **SSH issues**: Verify key generation and service configuration
 4. **Shell problems**: Restart terminal or source configuration files
+5. **Tmux plugins not working**: After tmux setup, start tmux and press `Ctrl+a` then `I` (capital I) to install plugins
 
 ### Backup and Recovery
 
 - Backups are automatically created in `~/.dotfiles_backup_*`
+- **Backed up files include**:
+  - Shell configurations (`~/.bashrc`, `~/.zshrc`)
+  - Git configuration (`~/.gitconfig`)
+  - SSH configuration (`~/.ssh/config`)
+  - Neovim configuration (`~/.config/nvim`)
+  - Tmux configuration (`~/.tmux.conf`, `~/.tmux`)
 - Use `dotfiles-update` to update your configuration
-- Individual scripts can be run separately if needed
 
 ## 🤝 Contributing
 
@@ -525,4 +578,9 @@ tmk
 # m - Maximize/restore pane
 # l - Last window
 # r - Reload config
+
+# Install plugins (after first setup)
+# 1. Start tmux: tmux
+# 2. Press: Ctrl+a, then I (capital I)
+# 3. Wait for plugin installation to complete
 ```

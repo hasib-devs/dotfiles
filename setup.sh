@@ -107,6 +107,8 @@ backup_existing() {
     "$HOME/.gitconfig"
     "$HOME/.ssh/config"
     "$HOME/.config/nvim"
+    "$HOME/.tmux.conf"
+    "$HOME/.tmux"
   )
 
   for file in "${files_to_backup[@]}"; do
@@ -124,7 +126,7 @@ run_setup_scripts() {
   log_info "Running setup scripts..."
 
   # Run OS-specific setup
-  if [[ "$OS" == "darwin" ]]; then
+  if [[ "$OS" == "macOS" ]]; then
     log_info "Running macOS setup..."
     bash scripts/setup_macos.sh
   else
@@ -179,18 +181,21 @@ show_help() {
   echo "  -s, --skip-backup  Skip backup step"
   echo "  --os-only      Only run OS-specific setup"
   echo "  --neovim-only  Only setup Neovim"
+  echo "  --tmux-only    Only setup tmux"
   echo "  --shell-only   Only setup shell configuration"
   echo ""
   echo "Examples:"
   echo "  $0              # Full setup"
   echo "  $0 --backup     # Only backup"
   echo "  $0 --neovim-only # Only setup Neovim"
+  echo "  $0 --tmux-only  # Only setup tmux"
 }
 
 # Parse command line arguments
 SKIP_BACKUP=false
 OS_ONLY=false
 NEOVIM_ONLY=false
+TMUX_ONLY=false
 SHELL_ONLY=false
 
 while [[ $# -gt 0 ]]; do
@@ -213,6 +218,10 @@ while [[ $# -gt 0 ]]; do
     ;;
   --neovim-only)
     NEOVIM_ONLY=true
+    shift
+    ;;
+  --tmux-only)
+    TMUX_ONLY=true
     shift
     ;;
   --shell-only)
@@ -254,6 +263,11 @@ main() {
 
   if [[ "$NEOVIM_ONLY" == "true" ]]; then
     "$SCRIPT_DIR/scripts/setup_neovim.sh"
+    exit 0
+  fi
+
+  if [[ "$TMUX_ONLY" == "true" ]]; then
+    bash scripts/setup_tmux.sh
     exit 0
   fi
 
