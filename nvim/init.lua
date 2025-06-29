@@ -1,160 +1,74 @@
+-- Ensure Lua can find modules in nvim/lua
+-- local config = vim.fn.stdpath("config")
+-- package.path = config .. "/lua/?.lua;" .. config .. "/lua/?/init.lua;" .. package.path
+
+-- =============================================================================
+-- Neovim Configuration
+-- =============================================================================
+
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- =============================================================================
+-- CORE MODULES
+-- =============================================================================
+
+-- Set up runtime path to find lua modules
+local config_dir = vim.fn.stdpath("config")
+vim.opt.runtimepath:prepend(config_dir)
+
+-- Set leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Local variables for cleaner code
 local map = vim.keymap.set
-local o = vim.opt
+local opt = vim.opt
+local cmd = vim.cmd
 
-o.number = true
-o.relativenumber = true
-o.expandtab = true
-o.shiftwidth = 4
-o.tabstop = 4
-o.softtabstop = 4
-o.cursorline = true
-o.undofile = true -- Save undo history
-o.confirm = true
-o.wildmenu = true
-o.wildmode = "longest:full,full"
-o.termguicolors = true
+-- Load core modules
+require("core.settings")
+require("core.keymaps")
+require("core.autocmds")
 
--- Enable search highlighting
-o.hlsearch = true
--- Enable incremental search (show matches as you type)
-o.incsearch = true
+-- =============================================================================
+-- FEATURE MODULES
+-- =============================================================================
 
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-o.ignorecase = true
-o.smartcase = true
+-- Load feature modules
+require("features.lsp").setup()
+require("features.statusline").setup()
+require("features.search").setup()
+require("features.git").setup()
+require("features.text").setup()
+require("features.project").setup()
+require("features.debug").setup()
+require("features.testing").setup()
+require("features.docs").setup()
+require("features.performance").setup()
 
-o.syntax = "on"
-o.autoindent = true
-o.encoding = "UTF-8"
-o.mouse = "a"
-o.title = true
-o.splitright = true
-o.splitbelow = true
-o.path:append("**")
-o.hidden = true
-o.signcolumn = "yes" -- Keep signcolumn on by default
+-- =============================================================================
+-- PLUGINS
+-- =============================================================================
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-o.list = true
-o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- Initialize lazy.nvim
+require("lazy").setup("plugins")
 
--- Preview substitutions live, as you type!
-o.inccommand = "split"
-
--- Save
-map({ "n", "i", "v" }, "<C-s>", ": w <cr><ESC>", { desc = "Save" })
-map({ "n", "i", "v" }, "<leader>w", ":w<cr><ESC>", { desc = "Save" })
-map({ "n", "i", "v" }, "<leader>W", ":wa<cr><ESC>", { desc = "Save All" })
-map({ "i" }, "jk", "<Esc>:w<cr>", { desc = "Save" })
-
--- Quit
-map("n", "<leader>Q", ":qa<CR>", { desc = "Quit All" })
-map("n", "<leader>q", ":q<CR>", { desc = "Quite", silent = true })
-
--- Exit insert mode
-map("i", "jj", "<ESC>", { desc = "Exit Insert Mode" })
-
--- Window Navigation
-map("n", "<C-h>", "<C-w>h", { desc = "Move to left split" })
-map("n", "<C-l>", "<C-w>l", { desc = "Move to right split" })
-map("n", "<C-j>", "<C-w>j", { desc = "Move to below split" })
-map("n", "<C-k>", "<C-w>k", { desc = "Move to above split" })
-
--- Clear highlights on search when pressing <Esc> in normal mode
-map("n", "<Esc>", ":nohlsearch<CR>", { desc = "Hide search highlight", silent = true })
-
--- Diagnostic keymaps
-map("n", "<leader>xd", vim.diagnostic.setloclist, { desc = "Open diagnostic list", silent = true })
-map("n", "<leader>xo", ":copen<CR>", { desc = "Open quickfix list", silent = true })
-map("n", "<leader>xc", ":cclose<CR>", { desc = "Close quickfix list", silent = true })
-
--- Buffer
-map("n", "<S-l>", ":bn<CR>", { desc = "Next Buffer", silent = true })
-map("n", "<S-h>", ":bp<CR>", { desc = "Prev Buffer", silent = true })
-map("n", "<leader>bl", ":ls<CR>", { desc = "Buffers List", silent = true })
-
--- Open Explorer
-map("n", "<leader>e", ":Ex<CR>", { desc = "Explorer", silent = true })
--- Delete current buffer
-map("n", "<leader>c", function()
-	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
-	local current_buf = vim.api.nvim_get_current_buf()
-
-	if #buffers <= 1 then
-	vim.cmd(":Ex") -- Open dashboard
-	else
-		vim.cmd("bdelete " .. current_buf)
-	end
-end, { desc = "Delete buffer", silent = true })
-
--- Add an empty line
-map("n", "<leader>ao", "o<Esc>k", { desc = "Add empty line below", silent = true })
-map("n", "<leader>aO", "O<Esc>j", { desc = "Add empty line above", silent = true })
-
--- Terminal
-map("n", "<leader>tt", ":term<CR>i", { desc = "Open Terminal" })
-map("n", "<leader>tj", ":20split | term<CR>i", { desc = "Open Terminal Bottom" })
-map("n", "<leader>tl", ":60vsplit | term<CR>i", { desc = "Open Terminal Right" })
-map("n", "<C-/>", ":60vsplit | term<CR>i", { desc = "Open Terminal Right" })
-map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal default" })
-
--- Find Files
-map("n", "<leader>ff", ":e ", { desc = "Find files" })
-map("n", "<leader>fb", ":b ", { desc = "Find buffers" })
-
--- Search Text
-map("n", "<leader>fg", ":vimgrep ", { desc = "Find buffers" })
-
--- Sync clipboard between OS and Neovim.
+-- Print startup completion message
 vim.schedule(function()
-	o.clipboard = "unnamedplus"
+    print("🎉 Neovim configuration loaded successfully!")
+    print("📚 Use <leader>hh for help")
+    print("⚡ Use <leader>pm for performance metrics")
+    print("🔧 Use <leader>pl to load project config")
 end)
-
--- Navigate diagnostics
-map('n', '[d', vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-map('n', ']d', vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-
--- LSP actions
-map('n', 'gd', vim.lsp.buf.definition, { desc = "Go to definition" })
-map('n', 'gr', vim.lsp.buf.references, { desc = "Go to references" })
-map('n', 'K', vim.lsp.buf.hover, { desc = "Hover documentation" })
-map('n', '<leader>rn', vim.lsp.buf.rename, { desc = "Rename symbol" })
-map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = "Code action" })
-
--- Source Neovim
-map("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>", { desc = "Open Terminal Right" })
-
-
--- Disable line numbers in terminal buffers
-vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "*",
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-  end,
-})
-
--- Create an autocommand to highlight yanked text
-vim.api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  callback = function()
-    vim.highlight.on_yank({
-      higroup = "IncSearch",  -- Highlight group (default is yellowish)
-      timeout = 150,         -- Duration in milliseconds (default: 150)
-      on_visual = true,      -- Also highlight in Visual mode (default: true)
-    })
-  end,
-})
-
--- Stop comment on new line
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "*",
-	callback = function()
-		vim.opt.formatoptions:remove({ "o", "r" }) -- Stop continuing comments on new lines
-	end,
-})
