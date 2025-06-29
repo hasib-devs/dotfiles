@@ -175,10 +175,10 @@ end
 
 -- Enhanced search with better highlighting
 local function setup_search_highlighting()
-    -- Custom highlight groups for better search
-    vim.api.nvim_set_hl(0, "Search", { fg = "#000000", bg = "#ffff00", bold = true })
-    vim.api.nvim_set_hl(0, "IncSearch", { fg = "#000000", bg = "#ffaa00", bold = true })
-    vim.api.nvim_set_hl(0, "CurSearch", { fg = "#000000", bg = "#00ff00", bold = true })
+    -- Custom highlight groups for better search (OneDark compatible)
+    vim.api.nvim_set_hl(0, "Search", { fg = "#282c34", bg = "#e5c07b", bold = true })
+    vim.api.nvim_set_hl(0, "IncSearch", { fg = "#282c34", bg = "#d19a66", bold = true })
+    vim.api.nvim_set_hl(0, "CurSearch", { fg = "#282c34", bg = "#98c379", bold = true })
 end
 
 -- Initialize enhanced features
@@ -187,9 +187,4 @@ vim.schedule(function()
     setup_filetype_indentation()
     setup_smart_comments()
     setup_search_highlighting()
-end)
-
--- Set colorscheme (if available)
-vim.schedule(function()
-    pcall(cmd, "colorscheme default")
 end) 

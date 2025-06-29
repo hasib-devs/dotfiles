@@ -22,14 +22,6 @@ return {
     end,
   },
 
-  -- Lazy profiling
-  {
-    'folke/lazy.nvim',
-    config = function()
-      vim.keymap.set('n', '<leader>pl', '<cmd>Lazy profile<cr>', { desc = 'Lazy profile' })
-    end,
-  },
-
   -- Memory usage
   {
     'tweekmonster/helpful.vim',

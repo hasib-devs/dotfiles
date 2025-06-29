@@ -153,26 +153,6 @@ return {
     end,
   },
 
-  -- Exchange - Exchange two regions
-  {
-    'tommcdo/vim-exchange',
-    config = function()
-      vim.keymap.set('n', 'cx', '<Plug>(Exchange)', { desc = 'Exchange' })
-      vim.keymap.set('n', 'cxx', '<Plug>(ExchangeLine)', { desc = 'Exchange line' })
-      vim.keymap.set('x', 'X', '<Plug>(Exchange)', { desc = 'Exchange selection' })
-    end,
-  },
-
-  -- Replace with register
-  {
-    'vim-scripts/ReplaceWithRegister',
-    config = function()
-      vim.keymap.set('n', 'gr', '<Plug>ReplaceWithRegisterOperator', { desc = 'Replace with register' })
-      vim.keymap.set('n', 'grr', '<Plug>ReplaceWithRegisterLine', { desc = 'Replace line with register' })
-      vim.keymap.set('x', 'gr', '<Plug>ReplaceWithRegisterVisual', { desc = 'Replace selection with register' })
-    end,
-  },
-
   -- Multiple cursors
   {
     'mg979/vim-visual-multi',
@@ -190,30 +170,6 @@ return {
         ['Undo'] = 'u',
         ['Redo'] = '<C-r>',
       }
-    end,
-  },
-
-  -- Align - Align text
-  {
-    'echasnovski/mini.align',
-    version = '*',
-    config = function()
-      require('mini.align').setup()
-      vim.keymap.set('n', 'ga', function()
-        local obj = vim.fn.input('Align by: ')
-        if obj ~= '' then
-          require('mini.align').align('visual', obj)
-        end
-      end, { desc = 'Align by pattern' })
-    end,
-  },
-
-  -- Easy align
-  {
-    'junegunn/vim-easy-align',
-    config = function()
-      vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)', { desc = 'Easy align' })
-      vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)', { desc = 'Easy align' })
     end,
   },
 } 

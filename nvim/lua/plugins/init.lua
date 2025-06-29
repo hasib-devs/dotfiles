@@ -39,6 +39,8 @@ local plugin_modules = {
     "project_management",
     "performance",
     "git",
+    "window_management",
+    "editing_enhancements",
 }
 
 for _, module in ipairs(plugin_modules) do

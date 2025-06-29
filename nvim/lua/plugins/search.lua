@@ -10,7 +10,6 @@ return {
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-github.nvim',
       'nvim-telescope/telescope-project.nvim',
-      'nvim-telescope/telescope-symbols.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
     },
     config = function()
@@ -126,38 +125,6 @@ return {
       vim.keymap.set('n', '<leader>2', function() ui.nav_file(2) end, { desc = 'Harpoon file 2' })
       vim.keymap.set('n', '<leader>3', function() ui.nav_file(3) end, { desc = 'Harpoon file 3' })
       vim.keymap.set('n', '<leader>4', function() ui.nav_file(4) end, { desc = 'Harpoon file 4' })
-    end,
-  },
-
-  -- Leap - Fast motion
-  {
-    'ggandor/leap.nvim',
-    config = function()
-      require('leap').add_default_mappings()
-    end,
-  },
-
-  -- Hop - Easy motion
-  {
-    'phaazon/hop.nvim',
-    branch = 'v2',
-    config = function()
-      require('hop').setup({ keys = 'etovxqpdygfblzhckisuran' })
-      local hop = require('hop')
-      local directions = require('hop.hint').HintDirection
-
-      vim.keymap.set('', 'f', function()
-        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-      end, { remap = true })
-      vim.keymap.set('', 'F', function()
-        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-      end, { remap = true })
-      vim.keymap.set('', 't', function()
-        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-      end, { remap = true })
-      vim.keymap.set('', 'T', function()
-        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-      end, { remap = true })
     end,
   },
 } 

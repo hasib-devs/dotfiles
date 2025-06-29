@@ -3,6 +3,39 @@
 -- =============================================================================
 
 return {
+    -- OneDark theme
+    {
+        "navarasu/onedark.nvim",
+        priority = 1000,
+        config = function()
+            require("onedark").setup({
+                style = "dark",
+                transparent = false,
+                term_colors = true,
+                ending_tildes = false,
+                cmp_itemkind_reverse = false,
+                toggle_style_key = nil,
+                toggle_style_list = { "dark", "darker", "cool", "deep", "warm", "warmer", "light" },
+                code_style = {
+                    comments = "italic",
+                    keywords = "none",
+                    functions = "none",
+                    strings = "none",
+                    variables = "none",
+                },
+                lualine = {
+                    transparent = false,
+                },
+                diagnostics = {
+                    darker = true,
+                    undercurl = true,
+                    background = true,
+                },
+            })
+            vim.cmd.colorscheme("onedark")
+        end,
+    },
+
     -- Web devicons
     {
         "nvim-tree/nvim-web-devicons",
@@ -18,7 +51,7 @@ return {
             require("lualine").setup({
                 options = {
                     icons_enabled = true,
-                    theme = "auto",
+                    theme = "onedark",
                     component_separators = { left = "", right = "" },
                     section_separators = { left = "", right = "" },
                     disabled_filetypes = {

@@ -153,34 +153,110 @@ return {
         end,
     },
 
-    -- Null-ls for formatting and linting
+    -- Conform.nvim for formatting
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "stevearc/conform.nvim",
+        event = { "BufWritePre" },
+        cmd = { "ConformInfo" },
+        keys = {
+            {
+                "<leader>f",
+                function()
+                    require("conform").format({ async = true, lsp_fallback = true })
+                end,
+                mode = "",
+                desc = "Format buffer",
+            },
+        },
+        opts = function()
+            local formatters_by_ft = {}
+            
+            -- Helper function to add formatters only if they're available
+            local function add_formatter_if_available(filetype, formatters)
+                local available_formatters = {}
+                for _, formatter in ipairs(formatters) do
+                    if type(formatter) == "string" then
+                        if vim.fn.executable(formatter) == 1 then
+                            table.insert(available_formatters, formatter)
+                        end
+                    elseif type(formatter) == "table" then
+                        -- Handle fallback formatters (e.g., ["prettierd", "prettier"])
+                        for _, fallback_formatter in ipairs(formatter) do
+                            if vim.fn.executable(fallback_formatter) == 1 then
+                                table.insert(available_formatters, fallback_formatter)
+                                break
+                            end
+                        end
+                    end
+                end
+                if #available_formatters > 0 then
+                    formatters_by_ft[filetype] = available_formatters
+                end
+            end
+            
+            -- Add formatters for different file types
+            add_formatter_if_available("lua", {"stylua"})
+            add_formatter_if_available("python", {"isort", "black"})
+            add_formatter_if_available("javascript", {{"prettierd", "prettier"}})
+            add_formatter_if_available("typescript", {{"prettierd", "prettier"}})
+            add_formatter_if_available("typescriptreact", {{"prettierd", "prettier"}})
+            add_formatter_if_available("javascriptreact", {{"prettierd", "prettier"}})
+            add_formatter_if_available("json", {{"prettierd", "prettier"}})
+            add_formatter_if_available("yaml", {{"prettierd", "prettier"}})
+            add_formatter_if_available("markdown", {{"prettierd", "prettier"}})
+            add_formatter_if_available("go", {"goimports", "gofumpt"})
+            add_formatter_if_available("rust", {"rustfmt"})
+            add_formatter_if_available("php", {"php_cs_fixer"})
+            add_formatter_if_available("ruby", {"rubocop"})
+            add_formatter_if_available("sh", {"shfmt"})
+            add_formatter_if_available("css", {{"prettierd", "prettier"}})
+            add_formatter_if_available("scss", {{"prettierd", "prettier"}})
+            add_formatter_if_available("html", {{"prettierd", "prettier"}})
+            
+            return {
+                notify_on_error = false,
+                format_on_save = function(bufnr)
+                    local disable_filetypes = { c = true, cpp = true }
+                    return {
+                        timeout_ms = 500,
+                        lsp_fallback = true,
+                    }
+                end,
+                formatters_by_ft = formatters_by_ft,
+            }
+        end,
+    },
+
+    -- None-ls for linting
+    {
+        "nvimtools/none-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            local null_ls = require("null-ls")
-
-            null_ls.setup({
-                sources = {
-                    -- Formatting
-                    null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.formatting.prettier,
-                    null_ls.builtins.formatting.black,
-                    null_ls.builtins.formatting.isort,
-                    null_ls.builtins.formatting.gofumpt,
-                    null_ls.builtins.formatting.goimports,
-                    null_ls.builtins.formatting.rustfmt,
-                    null_ls.builtins.formatting.phpcsfixer,
-                    null_ls.builtins.formatting.rubocop,
-
-                    -- Diagnostics
-                    null_ls.builtins.diagnostics.eslint,
-                    null_ls.builtins.diagnostics.flake8,
-                    null_ls.builtins.diagnostics.golangci_lint,
-                    null_ls.builtins.diagnostics.rubocop,
-                    null_ls.builtins.diagnostics.phpstan,
-                },
-            })
+        opts = function()
+            local nls = require("null-ls")
+            local sources = {
+                nls.builtins.code_actions.gitsigns,
+                nls.builtins.code_actions.refactoring,
+            }
+            
+            -- Add diagnostics only if the tools are available
+            local function add_if_available(builtin)
+                if builtin and builtin.cmd and vim.fn.executable(builtin.cmd) == 1 then
+                    table.insert(sources, builtin)
+                end
+            end
+            
+            -- Check for common linters and add them if available
+            add_if_available(nls.builtins.diagnostics.eslint)
+            add_if_available(nls.builtins.diagnostics.flake8)
+            add_if_available(nls.builtins.diagnostics.golangci_lint)
+            add_if_available(nls.builtins.diagnostics.rubocop)
+            add_if_available(nls.builtins.diagnostics.phpstan)
+            
+            return {
+                root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+                sources = sources,
+            }
         end,
     },
 } 
