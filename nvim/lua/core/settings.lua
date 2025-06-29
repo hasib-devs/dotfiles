@@ -2,6 +2,9 @@
 -- Core Settings
 -- =============================================================================
 
+-- NOTE: Only core/editor settings should be defined here.
+--       Plugin-specific settings should be placed in the relevant plugin config file under nvim/lua/plugins/.
+
 local opt = vim.opt
 
 -- =============================================================================

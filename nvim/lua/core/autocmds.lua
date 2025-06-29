@@ -2,6 +2,9 @@
 -- Core Autocommands
 -- =============================================================================
 
+-- NOTE: Only core/editor autocommands should be defined here.
+--       Plugin-specific autocommands should be placed in the relevant plugin config file under nvim/lua/plugins/.
+
 -- Disable line numbers in terminal buffers
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "*",
@@ -53,70 +56,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("FocusLost", {
     pattern = "*",
     command = "silent! wall",
-})
-
--- Enhanced LSP diagnostic configuration
-vim.diagnostic.config({
-    virtual_text = {
-        enabled = true,
-        spacing = 4,
-        prefix = "●",
-        source = "if_many",
-        format = function(diagnostic)
-            if diagnostic.source == "typescript" then
-                return string.format("%s [TS]", diagnostic.message)
-            elseif diagnostic.source == "gopls" then
-                return string.format("%s [Go]", diagnostic.message)
-            elseif diagnostic.source == "lua_ls" then
-                return string.format("%s [Lua]", diagnostic.message)
-            else
-                return diagnostic.message
-            end
-        end,
-    },
-    signs = {
-        enabled = true,
-        priority = 10,
-    },
-    underline = true,
-    update_in_insert = false,
-    severity_sort = true,
-    float = {
-        enabled = true,
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = "",
-        max_width = 80,
-        max_height = 20,
-        format = function(diagnostic)
-            if diagnostic.source == "typescript" then
-                return string.format("[TS] %s", diagnostic.message)
-            elseif diagnostic.source == "gopls" then
-                return string.format("[Go] %s", diagnostic.message)
-            elseif diagnostic.source == "lua_ls" then
-                return string.format("[Lua] %s", diagnostic.message)
-            else
-                return diagnostic.message
-            end
-        end,
-    },
-})
-
--- LSP progress notification
-vim.api.nvim_create_autocmd("User", {
-    pattern = "LspProgressUpdate",
-    callback = function()
-        vim.cmd("redrawstatus")
-    end,
-})
-
--- LSP status indicator
-vim.api.nvim_create_autocmd("User", {
-    pattern = "LspStatusUpdate",
-    callback = function()
-        vim.cmd("redrawstatus")
-    end,
 })
 
 -- Print startup time

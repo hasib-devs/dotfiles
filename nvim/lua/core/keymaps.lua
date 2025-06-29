@@ -2,6 +2,9 @@
 -- Core Keymaps
 -- =============================================================================
 
+-- NOTE: Only core/editor keymaps should be defined here.
+--       Plugin-specific keymaps should be placed in the relevant plugin config file under nvim/lua/plugins/.
+
 local map = vim.keymap.set
 
 -- =============================================================================
@@ -198,27 +201,11 @@ local function setup_buffer_switching()
     end, { desc = "Switch to last buffer" })
 end
 
--- Enhanced file operations
-local function setup_file_operations()
-    -- Create directory if it doesn't exist when saving
-    vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*",
-        callback = function()
-            local file = vim.fn.expand("<afile>")
-            local dir = vim.fn.fnamemodify(file, ":h")
-            if dir ~= "." and vim.fn.isdirectory(dir) == 0 then
-                vim.fn.mkdir(dir, "p")
-            end
-        end,
-    })
-end
-
--- Initialize enhanced keymaps
+-- Initialize enhanced features
 vim.schedule(function()
     setup_enhanced_search()
     setup_enhanced_windows()
     setup_enhanced_navigation()
     setup_enhanced_editing()
     setup_buffer_switching()
-    setup_file_operations()
 end) 

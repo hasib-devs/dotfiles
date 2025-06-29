@@ -146,6 +146,10 @@ run_setup_scripts() {
   log_info "Running tmux setup..."
   bash scripts/setup_tmux.sh
 
+  # Run performance monitoring setup
+  log_info "Running performance monitoring setup..."
+  bash scripts/setup_performance.sh
+
   # Run shell setup
   log_info "Running shell setup..."
   bash scripts/setup_shell.sh
@@ -182,6 +186,7 @@ show_help() {
   echo "  --os-only      Only run OS-specific setup"
   echo "  --neovim-only  Only setup Neovim"
   echo "  --tmux-only    Only setup tmux"
+  echo "  --performance-only  Only setup performance monitoring"
   echo "  --shell-only   Only setup shell configuration"
   echo ""
   echo "Examples:"
@@ -189,6 +194,7 @@ show_help() {
   echo "  $0 --backup     # Only backup"
   echo "  $0 --neovim-only # Only setup Neovim"
   echo "  $0 --tmux-only  # Only setup tmux"
+  echo "  $0 --performance-only # Only setup performance monitoring"
 }
 
 # Parse command line arguments
@@ -196,6 +202,7 @@ SKIP_BACKUP=false
 OS_ONLY=false
 NEOVIM_ONLY=false
 TMUX_ONLY=false
+PERFORMANCE_ONLY=false
 SHELL_ONLY=false
 
 while [[ $# -gt 0 ]]; do
@@ -222,6 +229,10 @@ while [[ $# -gt 0 ]]; do
     ;;
   --tmux-only)
     TMUX_ONLY=true
+    shift
+    ;;
+  --performance-only)
+    PERFORMANCE_ONLY=true
     shift
     ;;
   --shell-only)
@@ -268,6 +279,11 @@ main() {
 
   if [[ "$TMUX_ONLY" == "true" ]]; then
     bash scripts/setup_tmux.sh
+    exit 0
+  fi
+
+  if [[ "$PERFORMANCE_ONLY" == "true" ]]; then
+    bash scripts/setup_performance.sh
     exit 0
   fi
 

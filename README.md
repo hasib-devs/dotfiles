@@ -9,7 +9,7 @@ A comprehensive, modular Neovim configuration with advanced features for web dev
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
+   git clone https://github.com/hasib-devs/dotfiles.git ~/dotfiles
    cd ~/dotfiles
    ```
 
@@ -39,6 +39,9 @@ If you only want to set up specific components:
 
 # Only setup tmux
 ./setup.sh --tmux-only
+
+# Only setup performance monitoring
+./setup.sh --performance-only
 
 # Only setup shell configuration
 ./setup.sh --shell-only
@@ -105,6 +108,7 @@ If you only want to set up specific components:
 
 - **Neovim** with modular Lua configuration
 - **tmux** with TPM (Tmux Plugin Manager) and optimized configuration
+- **Performance monitoring** with system and development tools
 - **Git** with optimized configuration
 - **SSH** key generation and configuration
 - **Shell** configuration (bash/zsh)
@@ -185,6 +189,9 @@ The setup script supports various options for selective installation:
 # Only setup tmux
 ./setup.sh --tmux-only
 
+# Only setup performance monitoring
+./setup.sh --performance-only
+
 # Only setup shell configuration
 ./setup.sh --shell-only
 
@@ -214,6 +221,7 @@ The main orchestrator that runs all setup steps:
 - **`scripts/setup_common.sh`**: Shared configurations and tools
 - **`scripts/setup_neovim.sh`**: Neovim installation and configuration
 - **`scripts/setup_tmux.sh`**: Tmux installation and configuration
+- **`scripts/setup_performance.sh`**: Performance monitoring setup
 - **`scripts/setup_shell.sh`**: Shell configuration and aliases
 - **`scripts/setup_git.sh`**: Git configuration and user setup
 - **`scripts/setup_ssh.sh`**: SSH keys and service configuration
@@ -252,6 +260,7 @@ dotfiles/
 │   ├── setup_common.sh     # Common setup
 │   ├── setup_neovim.sh     # Neovim setup
 │   ├── setup_tmux.sh       # Tmux setup
+│   ├── setup_performance.sh # Performance monitoring setup
 │   ├── setup_shell.sh      # Shell setup
 │   ├── setup_git.sh        # Git setup
 │   ├── setup_ssh.sh        # SSH setup
@@ -479,6 +488,7 @@ For detailed setup instructions, run `dotfiles-complete` after installation.
 
 - **Neovim**: Latest version with modular Lua configuration
 - **tmux**: Terminal multiplexer with TPM and optimized configuration
+- **Performance monitoring**: System and development environment monitoring tools
 - **Git**: Latest version with optimized configuration
 - **Composer**: PHP package manager
 - **Language servers**: For enhanced development experience
@@ -583,4 +593,37 @@ tmk
 # 1. Start tmux: tmux
 # 2. Press: Ctrl+a, then I (capital I)
 # 3. Wait for plugin installation to complete
+```
+
+### **Performance Monitoring**
+
+```bash
+# System health check
+system-health
+
+# Development environment performance test
+dev-performance
+
+# Real-time resource monitoring
+monitor-resources
+
+# Performance dashboard
+performance-dashboard
+
+# Enhanced system monitors
+htop      # Interactive process viewer
+btop      # Advanced system monitor
+glances   # Comprehensive system monitor
+
+# Language-specific profiling
+# Node.js
+clinic doctor -- node app.js
+autocannon -c 10 -d 5 http://localhost:3000
+
+# Python
+python -m memory_profiler script.py
+py-spy top -- python script.py
+
+# Go
+go tool pprof http://localhost:6060/debug/pprof/heap
 ```
