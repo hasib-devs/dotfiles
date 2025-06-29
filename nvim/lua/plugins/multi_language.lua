@@ -239,20 +239,6 @@ return {
                 nls.builtins.code_actions.refactoring,
             }
             
-            -- Add diagnostics only if the tools are available
-            local function add_if_available(builtin)
-                if builtin and builtin.cmd and vim.fn.executable(builtin.cmd) == 1 then
-                    table.insert(sources, builtin)
-                end
-            end
-            
-            -- Check for common linters and add them if available
-            add_if_available(nls.builtins.diagnostics.eslint)
-            add_if_available(nls.builtins.diagnostics.flake8)
-            add_if_available(nls.builtins.diagnostics.golangci_lint)
-            add_if_available(nls.builtins.diagnostics.rubocop)
-            add_if_available(nls.builtins.diagnostics.phpstan)
-            
             return {
                 root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
                 sources = sources,
