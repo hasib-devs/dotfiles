@@ -68,21 +68,17 @@ return {
             noremap = true,
             nowait = true,
           },
+          preserve_window_proportions = true,
+          auto_expand_width = false,
           mappings = {
-            ['<space>'] = {
-              'toggle_node',
-              nowait = false,
-            },
-            ['<2-LeftMouse>'] = 'open',
             ['<cr>'] = 'open',
             ['<esc>'] = 'revert_preview',
             ['P'] = { 'toggle_preview', config = { use_float = true } },
-            ['l'] = 'focus_preview',
+            ['l'] = 'open',
             ['S'] = 'open_split',
             ['s'] = 'open_vsplit',
             ['t'] = 'open_tabnew',
             ['w'] = 'open_with_window_picker',
-            ['C'] = 'close_node',
             ['z'] = 'close_all_nodes',
             ['a'] = {
               'add',
@@ -155,7 +151,7 @@ return {
         },
         buffers = {
           follow_current_file = {
-            enabled = true,
+            enabled = false,
             leave_dirs_open = false,
           },
           group_empty_dirs = true,
