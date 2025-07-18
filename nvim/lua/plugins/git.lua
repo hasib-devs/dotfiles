@@ -40,12 +40,6 @@ return {
           col = 1,
         },
       })
-
-      vim.keymap.set('n', '<leader>gb', "<cmd>lua require('gitsigns').toggle_current_line_blame()<cr>", { desc = 'Toggle git blame' })
-      vim.keymap.set('n', '<leader>gp', "<cmd>lua require('gitsigns').preview_hunk()<cr>", { desc = 'Preview hunk' })
-      vim.keymap.set('n', '<leader>gr', "<cmd>lua require('gitsigns').reset_hunk()<cr>", { desc = 'Reset hunk' })
-      vim.keymap.set('n', '<leader>gs', "<cmd>lua require('gitsigns').stage_hunk()<cr>", { desc = 'Stage hunk' })
-      vim.keymap.set('n', '<leader>gu', "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", { desc = 'Undo stage hunk' })
     end,
   },
 
@@ -168,10 +162,6 @@ return {
           },
         },
       })
-
-      vim.keymap.set('n', '<leader>gd', '<cmd>DiffviewOpen<cr>', { desc = 'Open diffview' })
-      vim.keymap.set('n', '<leader>gh', '<cmd>DiffviewFileHistory<cr>', { desc = 'File history' })
-      vim.keymap.set('n', '<leader>gc', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' })
     end,
   },
 
@@ -195,11 +185,6 @@ return {
           current = 'DiffAdd',
         },
       })
-
-      vim.keymap.set('n', '<leader>go', '<cmd>GitConflictChooseOurs<cr>', { desc = 'Choose ours' })
-      vim.keymap.set('n', '<leader>gt', '<cmd>GitConflictChooseTheirs<cr>', { desc = 'Choose theirs' })
-      vim.keymap.set('n', '<leader>gn', '<cmd>GitConflictNextConflict<cr>', { desc = 'Next conflict' })
-      vim.keymap.set('n', '<leader>gp', '<cmd>GitConflictPrevConflict<cr>', { desc = 'Prev conflict' })
     end,
   },
-} 
+}

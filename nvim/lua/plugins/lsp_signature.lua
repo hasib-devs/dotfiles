@@ -1,9 +1,5 @@
--- =============================================================================
--- Enhanced Code Actions Plugins
--- =============================================================================
-
+-- LSP Signature for enhanced signature help
 return {
-    -- LSP Signature for enhanced signature help
     {
         "ray-x/lsp_signature.nvim",
         event = "VeryLazy",
@@ -22,4 +18,4 @@ return {
             toggle_key = "<C-k>",
         },
     },
-} 
+}
