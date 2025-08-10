@@ -2,27 +2,53 @@
 -- Neovim Configuration
 -- =============================================================================
 
--- Set leader keys early
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out,                            "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Basic settings to prevent jumping
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
-vim.opt.cursorline = false
-vim.opt.cursorcolumn = false
-vim.opt.relativenumber = false
-vim.opt.number = true
-vim.opt.wrap = false
-vim.opt.linebreak = true
-vim.opt.breakindent = true
 
--- Basic keymaps for saving and quitting
-vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
-vim.keymap.set("n", "<leader>W", "<cmd>wa<cr>", { desc = "Save all files" })
-vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
-vim.keymap.set("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
-vim.keymap.set("n", "<leader>wq", "<cmd>wq<cr>", { desc = "Save and quit" })
-vim.keymap.set("n", "<leader>wQ", "<cmd>wqa<cr>", { desc = "Save all and quit" })
 
-require("plugins")
+-- Load core modules first
+require("core.settings")
+require("core.keymaps")
+
+require("lazy").setup({
+  spec = {
+    -- import your plugins
+    { import = "plugins" },
+  },
+  -- automatically check for plugin updates
+  checker = { enabled = false },
+  ui = {
+    border = "rounded",
+    icons = {
+      loaded = "●",
+      not_loaded = "○",
+      cmd = "⌘",
+      config = "⚙",
+      event = "📅",
+      ft = "📂",
+      init = "⚡",
+      keys = "🎹",
+      plugin = "🔌",
+      runtime = "💻",
+      source = "📄",
+      start = "🚀",
+      task = "📋",
+      lazy = "💤 ",
+    },
+  },
+})

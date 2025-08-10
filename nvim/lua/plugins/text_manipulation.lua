@@ -25,28 +25,6 @@ return {
     end,
   },
 
-  -- Surround - Surround text with brackets, quotes, etc.
-  {
-    'kylechui/nvim-surround',
-    version = '*',
-    config = function()
-      require('nvim-surround').setup({
-        keymaps = {
-          insert = '<C-g>s',
-          insert_line = '<C-g>S',
-          normal = 'ys',
-          normal_cur = 'yss',
-          normal_line = 'yS',
-          normal_cur_line = 'ySS',
-          visual = 'S',
-          visual_line = 'gS',
-          delete = 'ds',
-          change = 'cs',
-        },
-      })
-    end,
-  },
-
   -- Auto pairs - Auto close brackets, quotes, etc.
   {
     'windwp/nvim-autopairs',
@@ -78,42 +56,6 @@ return {
     end,
   },
 
-  -- Indent blankline - Show indent guides
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    config = function()
-      require('ibl').setup({
-        indent = {
-          char = '│',
-          tab_char = '│',
-        },
-        scope = {
-          enabled = true,
-          show_start = true,
-          show_end = true,
-          injected_languages = true,
-          highlight = 'Function',
-          priority = 500,
-        },
-        exclude = {
-          filetypes = {
-            'help',
-            'alpha',
-            'dashboard',
-            'neo-tree',
-            'Trouble',
-            'lazy',
-            'mason',
-            'notify',
-            'toggleterm',
-            'lazyterm',
-          },
-        },
-      })
-    end,
-  },
-
   -- Rainbow parentheses
   {
     'HiPhish/rainbow-delimiters.nvim',
@@ -142,17 +84,6 @@ return {
     end,
   },
 
-  -- Splitjoin - Split and join lines
-  {
-    'AndrewRadev/splitjoin.vim',
-    config = function()
-      vim.g.splitjoin_split_mapping = ''
-      vim.g.splitjoin_join_mapping = ''
-      vim.keymap.set('n', 'gJ', '<cmd>SplitjoinJoin<cr>', { desc = 'Join lines' })
-      vim.keymap.set('n', 'gS', '<cmd>SplitjoinSplit<cr>', { desc = 'Split lines' })
-    end,
-  },
-
   -- Multiple cursors
   {
     'mg979/vim-visual-multi',
@@ -172,4 +103,4 @@ return {
       }
     end,
   },
-} 
+}
