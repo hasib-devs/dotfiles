@@ -10,9 +10,6 @@ return {
       "lua_ls",
       "vimls",
       "ts_ls",
-      "intelephense",
-      "rust_analyzer",
-      "gopls",
     },
   },
 }
