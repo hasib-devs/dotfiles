@@ -1,496 +1,180 @@
-{
-    "remoteHub.commitDirectlyWarning": "off",
-    "workbench.colorTheme": "One Dark Pro",
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.colorCustomizations": {
-        "statusBar.background": "#F7A5A5",
-        "statusBar.noFolderBackground": "#F7A5A5",
-        "statusBar.debuggingBackground": "#F7A5A5",
-        "statusBar.foreground": "#434C5E",
-        "statusBar.debuggingForeground": "#434C5E"
+[
+    // Incress/Decrease File explorer view
+    {
+        "key": "shift+alt+h",
+        "command": "workbench.action.increaseViewSize",
+        "when": "editorFocus"
     },
-    "editor.lineNumbers": "relative",
-    "editor.formatOnSave": true,
-    "editor.cursorSurroundingLines": 10,
-    "git.autofetch": true,
-    "git.enableSmartCommit": true,
-    "git.confirmSync": false,
-    "files.autoSave": "onFocusChange",
-    "files.autoSaveWhenNoErrors": true,
-    // Format on save
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
+    {
+        "key": "shift+alt+h",
+        "command": "workbench.action.decreaseViewSize",
+        "when": "filesExplorerFocus"
     },
-    // To improve performance
-    "extensions.experimental.affinity": {
-        "vscodevim.vim": 1
+    {
+        "key": "shift+alt+l",
+        "command": "workbench.action.decreaseViewSize",
+        "when": "editorFocus"
     },
-    "makefile.configureOnOpen": false,
-    // Vim settings
-    "vim.leader": "<space>",
-    "vim.showcmd": true,
-    "vim.showmodename": true,
-    "vim.smartcase": true,
-    "vim.easymotion": true,
-    "vim.incsearch": true,
-    "vim.useCtrlKeys": true,
-    "vim.hlsearch": true,
-    "vim.camelCaseMotion.enable": true,
-    "vim.statusBarColorControl": true,
-    "vim.highlightedyank.enable": true,
-    "vim.highlightedyank.color": "#a9dc7660",
-    "vim.statusBarColors.insert": "#91ADC8",
-    "vim.statusBarColors.visual": "#FFDBB6",
-    "vim.statusBarColors.visualline": "#F7A5A5",
-    "vim.statusBarColors.visualblock": "#FAFDD6",
-    "vim.statusBarColors.replace": "#D08770",
-    "vim.statusBarColors.commandlineinprogress": "#007ACC",
-    "vim.statusBarColors.searchinprogressmode": "#007ACC",
-    "vim.statusBarColors.easymotionmode": "#F3F2EC",
-    "vim.statusBarColors.easymotioninputmode": "#67C090",
-    "vim.statusBarColors.surroundinputmode": "#007ACC",
-    "vim.statusBarColors.normal": [
-        "#8FBCBB",
-        "#434C5E"
-    ],
-    "vim.handleKeys": {
-        "<C-space>": false,
-        "<C-h>": false,
-        "<C-j>": false,
-        "<C-k>": false,
-        "<C-l>": false,
-        "<C-s>": false,
-        "<C-d>": true,
-        "<C-u>": true,
+    {
+        "key": "shift+alt+l",
+        "command": "workbench.action.increaseViewSize",
+        "when": "filesExplorerFocus"
     },
-    // Insert Mode Keybindings
-    "vim.insertModeKeyBindings": [
-        {
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<Esc>"
-            ]
-        },
-        {
-            "before": [
-                "j",
-                "k"
-            ],
-            "commands": [
-                "workbench.action.files.save"
-            ],
-            "after": [
-                "<Esc>"
-            ]
-        },
-    ],
-    // Normal Mode Non Recursive Keybindings
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                ":"
-            ],
-            "commands": [
-                "workbench.action.showCommands"
-            ],
-            "silent": true
-        },
-        {
-            "before": [
-                "<Esc>"
-            ],
-            "commands": [
-                ":nohl"
-            ],
-            "silent": true
-        },
-        {
-            "before": [
-                "<C-n>"
-            ],
-            "commands": [
-                ":nohl"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "w"
-            ],
-            "commands": [
-                "workbench.action.files.save"
-            ],
-            "when": "editorFocus"
-        },
-        {
-            "before": [
-                "<leader>",
-                "f"
-            ],
-            "commands": [
-                "editor.action.formatDocument"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "r"
-            ],
-            "commands": [
-                "editor.action.rename"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "m"
-            ],
-            "commands": [
-                "bookmarks.toggle"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "b"
-            ],
-            "commands": [
-                "bookmarks.list"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "e"
-            ],
-            "commands": [
-                "workbench.action.toggleSidebarVisibility"
-            ]
-        },
-        {
-            "before": [
-                "<C-p>"
-            ],
-            "commands": [
-                "workbench.action.quickOpen"
-            ],
-            "when": "!suggestWidgetVisible && editorHasSignatureHelpProvider && editorTextFocus"
-        },
-        {
-            "before": [
-                "<C-d>"
-            ],
-            "after": [
-                "<C-d>",
-                "z",
-                "z"
-            ]
-        },
-        {
-            "before": [
-                "<C-u>"
-            ],
-            "after": [
-                "<C-u>",
-                "z",
-                "z"
-            ]
-        },
-        {
-            "before": [
-                "n"
-            ],
-            "after": [
-                "n",
-                "z",
-                "z"
-            ]
-        },
-        {
-            "before": [
-                "N"
-            ],
-            "after": [
-                "N",
-                "z",
-                "z"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d"
-            ],
-            "after": [
-                "\"",
-                "_",
-                "d"
-            ]
-        },
-        {
-            "before": [
-                "x"
-            ],
-            "after": [
-                "\"",
-                "_",
-                "x"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "y"
-            ],
-            "after": [
-                "\"",
-                "+",
-                "y"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "Y"
-            ],
-            "after": [
-                "\"",
-                "+",
-                "Y"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "p"
-            ],
-            "after": [
-                "\"",
-                "+",
-                "p"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "d"
-            ],
-            "commands": [
-                "editor.action.revealDefinition"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "p",
-                "d"
-            ],
-            "commands": [
-                "editor.action.peekDefinition"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "I"
-            ],
-            "commands": [
-                "editor.action.goToImplementation"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "p",
-                "I"
-            ],
-            "commands": [
-                "editor.action.peekImplementation"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "D"
-            ],
-            "commands": [
-                "editor.action.revealDeclaration"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "r"
-            ],
-            "commands": [
-                "editor.action.referenceSearch.trigger"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "t"
-            ],
-            "commands": [
-                "editor.action.goToTypeDefinition"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "p",
-                "t"
-            ],
-            "commands": [
-                "editor.action.peekTypeDefinition"
-            ]
-        },
-        {
-            "before": [
-                "]",
-                "d"
-            ],
-            "commands": [
-                "editor.action.marker.next"
-            ],
-            "when": "editorFocus"
-        },
-        {
-            "before": [
-                "[",
-                "d"
-            ],
-            "commands": [
-                "editor.action.marker.prev"
-            ],
-            "when": "editorFocus"
-        },
-        {
-            "before": [
-                "<leader>",
-                "s",
-                "s"
-            ],
-            "commands": [
-                "workbench.action.gotoSymbol"
-            ],
-            "when": "!accessibilityHelpIsShown && !accessibleViewIsShown"
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "s"
-            ],
-            "commands": [
-                "workbench.view.scm"
-            ],
-            "when": "workbench.scm.active"
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "c"
-            ],
-            "commands": [
-                "git.checkout"
-            ],
-            "when": "workbench.scm.active"
-        },
-    ],
-    // Visual Mode Keybindings
-    "vim.visualModeKeyBindings": [
-        {
-            "before": [
-                "<leader>",
-                "y"
-            ],
-            "after": [
-                "\"",
-                "+",
-                "y"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d"
-            ],
-            "after": [
-                "\"",
-                "_",
-                "d"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "p"
-            ],
-            "after": [
-                "\"",
-                "_",
-                "d",
-                "P"
-            ]
-        },
-        {
-            "before": [
-                "J"
-            ],
-            "after": [
-                ":",
-                "m",
-                " ",
-                "'",
-                ">",
-                "+",
-                "1",
-                "<CR>",
-                "V"
-            ]
-        },
-        {
-            "before": [
-                "K"
-            ],
-            "after": [
-                ":",
-                "m",
-                " ",
-                "'",
-                ">",
-                "-",
-                "2",
-                "<CR>",
-                "V"
-            ]
-        },
-        {
-            "before": [
-                "<"
-            ],
-            "after": [
-                "<",
-                "g",
-                "v",
-                "^"
-            ]
-        },
-        {
-            "before": [
-                ">"
-            ],
-            "after": [
-                ">",
-                "g",
-                "v",
-                "^"
-            ]
-        }
-    ],
-}
+    // End // Incress/Decrease File explorer view
+    // Toggle terminal maximize panel
+    {
+        "key": "shift+alt+m",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "terminalFocusInAny"
+    },
+    // Navigate next/prev buffer/tab //
+    {
+        "key": "shift+l",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+h",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "-workbench.action.previousEditor"
+    },
+    // Navigate next/prev pane //
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "-workbench.action.togglePanel"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "ctrl+l",
+        "when": "sideBarFocus",
+        "command": "workbench.action.focusActiveEditorGroup"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "selectNextSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "selectPrevSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "selectNextCodeAction",
+        "when": "codeActionMenuVisible"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "selectPrevCodeAction",
+        "when": "codeActionMenuVisible"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "acceptSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.quickOpenNavigateNext",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "workbench.action.quickOpenNavigatePrevious",
+        "when": "inQuickOpen"
+    },
+    // Navigate next/prev //
+    // Explorer
+    {
+        "key": "h",
+        "command": "list.collapse",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "j",
+        "command": "list.focusDown",
+        "when": "listFocus && explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "k",
+        "command": "list.focusUp",
+        "when": "listFocus && explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "o",
+        "command": "list.toggleExpand",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+o",
+        "command": "workbench.files.action.collapseExplorerFolders",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+a",
+        "command": "explorer.newFolder",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "r",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "d",
+        "command": "deleteFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "y",
+        "command": "filesExplorer.copy",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    },
+    {
+        "key": "x",
+        "command": "filesExplorer.cut",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    },
+    {
+        "key": "p",
+        "command": "filesExplorer.paste",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "v",
+        "command": "explorer.openToSide",
+        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+    },
+]
