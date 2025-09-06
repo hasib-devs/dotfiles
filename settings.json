@@ -30,7 +30,6 @@
     "vim.leader": "<space>",
     "vim.showcmd": true,
     "vim.showmodename": true,
-    "vim.smartcase": true,
     "vim.easymotion": true,
     "vim.incsearch": true,
     "vim.useCtrlKeys": true,
@@ -118,16 +117,6 @@
         {
             "before": [
                 "<leader>",
-                "w"
-            ],
-            "commands": [
-                "workbench.action.files.save"
-            ],
-            "when": "editorFocus"
-        },
-        {
-            "before": [
-                "<leader>",
                 "f"
             ],
             "commands": [
@@ -155,19 +144,11 @@
         {
             "before": [
                 "<leader>",
-                "b"
+                "m",
+                "m"
             ],
             "commands": [
                 "bookmarks.list"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "e"
-            ],
-            "commands": [
-                "workbench.action.toggleSidebarVisibility"
             ]
         },
         {
