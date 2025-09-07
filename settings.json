@@ -382,6 +382,24 @@
             ],
             "when": "workbench.scm.active"
         },
+        {
+            "before": [
+                "L",
+            ],
+            "commands": [
+                "workbench.action.nextEditor"
+            ],
+            "when": "editorFocus"
+        },
+        {
+            "before": [
+                "H",
+            ],
+            "commands": [
+                "workbench.action.previousEditor"
+            ],
+            "when": "editorFocus"
+        },
     ],
     // Visual Mode Keybindings
     "vim.visualModeKeyBindings": [
@@ -474,4 +492,18 @@
             ]
         }
     ],
+    "cSpell.userWords": [
+        "editorjs",
+        "mikro",
+        "Probaho"
+    ],
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "terminal.integrated.fontSize": 13,
+    "editor.fontSize": 12.5,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
 }
