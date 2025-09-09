@@ -90,15 +90,6 @@
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": [
-                ":"
-            ],
-            "commands": [
-                "workbench.action.showCommands"
-            ],
-            "silent": true
-        },
-        {
-            "before": [
                 "<Esc>"
             ],
             "commands": [
@@ -400,6 +391,16 @@
             ],
             "when": "editorFocus"
         },
+        {
+            "before": [
+                "<leader>",
+                "i",
+            ],
+            "commands": [
+                "editor.action.organizeImports"
+            ],
+            "when": "textInputFocus && !editorReadonly && supportedCodeAction =~ /(\\s|^)source\\.organizeImports\\b/"
+        }
     ],
     // Visual Mode Keybindings
     "vim.visualModeKeyBindings": [
@@ -501,9 +502,15 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "terminal.integrated.fontSize": 13,
-    "editor.fontSize": 12.5,
     "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "typescript.updateImportsOnFileMove.enabled": "always",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "github.copilot.enable": {
+        "markdown": true,
+        "plaintext": true,
+        "scminput": true
+    },
+    "editor.fontSize": 13,
 }
