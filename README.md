@@ -3,8 +3,8 @@
 ## Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Install zsh, fzf
-`brew install zsh fzf`
+# Install zsh, fzf, ripgrep, fd, lazygit
+`brew install zsh fzf ripgrep fd lazygit`
 
 # Install Oh My Zsh
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
