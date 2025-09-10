@@ -8,6 +8,8 @@
 
 `brew install mongodb-community`
 
+# Install Redis
+`brew install redis`
 
 # Enable keyrepeat for browser
 `defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false`
