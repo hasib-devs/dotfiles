@@ -31,3 +31,18 @@
 # Key Repeat speed
 `defaults write -g InitialKeyRepeat -float 10.0`
 `defaults write -g KeyRepeat -float 1.0`
+
+
+## Vim-style Folding Commands:
+```
+zc: Fold the code block at the cursor's current position.
+zo: Unfold the code block at the cursor's current position.
+za: Toggle the fold state (fold or unfold) at the cursor's current position.
+zf: Create a manual fold from a selected range of lines (enter visual mode v, select lines, then zf).
+zd: Delete a manual fold at the cursor's current position.
+zC: Fold recursively (folds the current region and all nested regions). 
+zO: Unfold recursively (unfolds the current region and all nested regions). 
+zm: Fold more (increases the fold level).
+zr: Unfold more (decreases the fold level).
+zM: Fold all regions in the editor.
+zR: Unfold all regions in the editor.```
