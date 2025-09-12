@@ -505,8 +505,11 @@
     "cSpell.userWords": [
         "editorjs",
         "hasib",
+        "Hasibur",
         "mikro",
-        "Probaho"
+        "Probaho",
+        "Rahman",
+        "turbopack"
     ],
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -545,4 +548,5 @@
     "vsicons.presets.hideExplorerArrows": true,
     "explorer.compactFolders": false,
     "remoteHub.commitDirectlyWarning": "off",
+    "vim.foldfix": true,
 }
