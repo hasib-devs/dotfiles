@@ -33,6 +33,8 @@
     "vim.incsearch": true,
     "vim.useCtrlKeys": true,
     "vim.hlsearch": true,
+    "vim.foldfix": true,
+    "vim.changeWordIncludesWhitespace": true,
     "vim.camelCaseMotion.enable": true,
     "vim.statusBarColorControl": true,
     "vim.highlightedyank.enable": true,
@@ -103,6 +105,15 @@
             "commands": [
                 ":nohl"
             ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "lineBreakInsert"
+            ],
+            "silent": true
         },
         {
             "before": [
@@ -393,10 +404,20 @@
         {
             "before": [
                 "<leader>",
+                "o",
+            ],
+            "commands": [
+                "workbench.action.files.save"
+            ],
+            "when": "editorFocus"
+        },
+        {
+            "before": [
+                "<leader>",
                 "i",
             ],
             "commands": [
-                "editor.action.organizeImports"
+                "editor.action.organizeImports",
             ],
             "when": "textInputFocus && !editorReadonly && supportedCodeAction =~ /(\\s|^)source\\.organizeImports\\b/"
         },
@@ -502,6 +523,20 @@
             ]
         }
     ],
+    // Vim Non Recursive Visual Mode Keybindings
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "p",
+            ],
+            "after": [
+                "p",
+                "g",
+                "v",
+                "y"
+            ]
+        }
+    ],
     "cSpell.userWords": [
         "editorjs",
         "hasib",
@@ -509,7 +544,8 @@
         "mikro",
         "Probaho",
         "Rahman",
-        "turbopack"
+        "turbopack",
+        "UBRs"
     ],
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -526,10 +562,9 @@
         "scminput": true
     },
     "editor.fontSize": 13,
-    "editor.accessibilitySupport": "off",
     "vsicons.dontShowNewVersionMessage": true,
     "workbench.startupEditor": "none",
-    "redhat.telemetry.enabled": true,
+    "redhat.telemetry.enabled": false,
     "security.promptForLocalFileProtocolHandling": false,
     "github.copilot.chat.scopeSelection": true,
     "github.copilot.chat.codesearch.enabled": true,
@@ -547,6 +582,11 @@
     "terminal.integrated.cursorBlinking": true,
     "vsicons.presets.hideExplorerArrows": true,
     "explorer.compactFolders": false,
+    "chat.agent.maxRequests": 100,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.autoClosingTags": true,
+    "typescript.preferences.renameMatchingJsxTags": true,
+    "typescript.preferences.jsxAttributeCompletionStyle": "auto",
     "remoteHub.commitDirectlyWarning": "off",
-    "vim.foldfix": true,
+    "mdb.mcp.server": "disabled",
 }
