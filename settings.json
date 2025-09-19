@@ -38,6 +38,7 @@
     "vim.camelCaseMotion.enable": true,
     "vim.statusBarColorControl": true,
     "vim.highlightedyank.enable": true,
+    "vim.useSystemClipboard": true,
     "vim.highlightedyank.color": "#a9dc7660",
     "vim.statusBarColors.insert": "#91ADC8",
     "vim.statusBarColors.visual": "#FFDBB6",
@@ -563,6 +564,7 @@
     ],
     "cSpell.userWords": [
         "editorjs",
+        "fulltext",
         "hasib",
         "Hasibur",
         "mikro",
