@@ -29,8 +29,8 @@
 `defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false`
 
 # Key Repeat speed
-`defaults write -g InitialKeyRepeat -float 10.0`
-`defaults write -g KeyRepeat -float 1.0`
+`defaults write -g InitialKeyRepeat -float 15.0`
+`defaults write -g KeyRepeat -float 1.5`
 
 
 ## Vim-style Folding Commands:
