@@ -33,6 +33,14 @@
 `defaults write -g KeyRepeat -float 1.5`
 
 
+# Debian/Ubuntu
+`sudo apt install -y build-essential python3 curl git`
+`sudo apt-get install zsh fzf ripgrep`
+
+
+# Common commands
+`sudo chown -R $USER:$USER /var/www`
+
 ## Vim-style Folding Commands:
 ```
 zc: Fold the code block at the cursor's current position.
